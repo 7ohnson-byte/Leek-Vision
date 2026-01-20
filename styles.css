@@ -1,0 +1,288 @@
+/* =====================================================
+   DEGEN VISION - RETRO GAMING UI
+   Web3 Degen Vibe with Pixel Fonts & Neon Colors
+   ===================================================== */
+
+/* Import Pixel Font */
+@import url('https://fonts.googleapis.com/css2?family=VT323&display=swap');
+
+/* =====================================================
+   BADGE STYLES - The Trigger Button (Dynamic Scaling)
+   ===================================================== */
+
+.degen-vision-badge {
+  background: linear-gradient(135deg, #9945FF, #14F195) !important;
+  color: #ffffff !important;
+  border: 2px solid #000000 !important;
+  border-radius: 0.25em !important;
+  padding: 0.15em 0.4em !important;
+  font-family: 'VT323', monospace !important;
+  font-size: 0.85em !important;
+  font-weight: normal !important;
+  margin-left: 0.4em !important;
+  display: inline-block !important;
+  vertical-align: middle !important;
+  cursor: pointer !important;
+  user-select: none !important;
+  transition: all 0.1s ease !important;
+  position: relative !important;
+  box-shadow: 0.2em 0.2em 0px #000000 !important;
+  text-shadow: 0.1em 0.1em 0px rgba(0, 0, 0, 0.3) !important;
+  line-height: 1.2 !important;
+  white-space: nowrap !important;
+}
+
+.degen-vision-badge:hover {
+  background: linear-gradient(135deg, #14F195, #9945FF) !important;
+  transform: translate(-0.1em, -0.1em);
+  box-shadow: 0.3em 0.3em 0px #000000 !important;
+}
+
+.degen-vision-badge:active {
+  transform: translate(0.1em, 0.1em);
+  box-shadow: 0.1em 0.1em 0px #000000 !important;
+}
+
+/* Searching state animation */
+.degen-vision-badge.degen-searching {
+  animation: degenPulse 0.5s infinite;
+}
+
+@keyframes degenPulse {
+  0%, 100% {
+    opacity: 1;
+    background: linear-gradient(135deg, #9945FF, #14F195);
+  }
+  50% {
+    opacity: 0.7;
+    background: linear-gradient(135deg, #FFD700, #FF6B6B);
+  }
+}
+
+/* =====================================================
+   DROPDOWN MENU - Retro Gaming Style
+   ===================================================== */
+
+.degen-dropdown {
+  display: none;
+  position: fixed;
+  z-index: 2147483647;
+  background: #111111;
+  border: 3px solid #9945FF;
+  border-radius: 8px;
+  padding: 8px;
+  min-width: 200px;
+  box-shadow:
+    0 0 20px rgba(153, 69, 255, 0.5),
+    0 0 40px rgba(20, 241, 149, 0.3),
+    6px 6px 0px #000000;
+  font-family: 'VT323', monospace;
+  animation: degenMenuSlideIn 0.2s ease;
+}
+
+@keyframes degenMenuSlideIn {
+  from {
+    opacity: 0;
+    transform: translateY(-10px) scale(0.95);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+/* Visible state for toggle */
+.degen-dropdown.visible {
+  display: block;
+}
+
+/* Menu Header */
+.degen-dropdown-header {
+  padding: 4px 8px;
+  font-size: 14px;
+  text-transform: uppercase;
+  color: #9945FF;
+  letter-spacing: 2px;
+  border-bottom: 2px solid #9945FF;
+  margin-bottom: 8px;
+  text-shadow: 0 0 10px rgba(153, 69, 255, 0.8);
+  text-align: center;
+}
+
+/* Menu Items - Retro Button Style */
+.degen-dropdown-item {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 10px 14px;
+  margin-bottom: 4px;
+  background: #111111;
+  border: 2px solid #00FF00;
+  border-radius: 4px;
+  color: #00FF00;
+  cursor: pointer;
+  transition: all 0.1s ease;
+  font-family: 'VT323', monospace;
+  font-size: 20px;
+  font-weight: normal;
+  text-align: left;
+  width: 100%;
+  box-shadow: 3px 3px 0px #000000;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.degen-dropdown-item:last-child {
+  margin-bottom: 0;
+}
+
+/* Hover state - Invert colors */
+.degen-dropdown-item:hover {
+  background: #00FF00;
+  color: #111111;
+  transform: translate(-2px, -2px);
+  box-shadow: 5px 5px 0px #000000;
+  text-shadow: none;
+}
+
+.degen-dropdown-item:active {
+  transform: translate(1px, 1px);
+  box-shadow: 2px 2px 0px #000000;
+}
+
+/* Active/currency state */
+.degen-dropdown-item.active {
+  background: rgba(153, 69, 255, 0.2);
+  border-color: #9945FF;
+  color: #9945FF;
+  box-shadow: inset 3px 3px 0px rgba(153, 69, 255, 0.3);
+}
+
+.degen-dropdown-item.active:hover {
+  background: #9945FF;
+  color: #111111;
+}
+
+/* Currency Icons */
+.degen-dropdown-item .currency-icon {
+  font-size: 24px;
+  width: 32px;
+  text-align: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Special styling for Custom CA */
+.degen-dropdown-item[data-value="CUSTOM"] {
+  border-color: #FFD700;
+  color: #FFD700;
+  margin-top: 8px;
+  padding-top: 12px;
+  border-top: 3px solid #FFD700;
+}
+
+.degen-dropdown-item[data-value="CUSTOM"]:hover {
+  background: #FFD700;
+  color: #111111;
+}
+
+/* Neon glow effect for special items */
+.degen-dropdown-item[data-value="CUSTOM"] .currency-icon {
+  text-shadow: 0 0 10px #FFD700;
+  animation: degenGlow 1.5s infinite;
+}
+
+@keyframes degenGlow {
+  0%, 100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.6;
+  }
+}
+
+/* Divider */
+.degen-dropdown-divider {
+  height: 2px;
+  background: linear-gradient(90deg, transparent, #9945FF, transparent);
+  margin: 8px 0;
+  border: none;
+}
+
+/* Prevent text selection */
+.degen-dropdown,
+.degen-dropdown-item,
+.degen-vision-badge {
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
+/* Close on outside click handled in JS */
+
+/* =====================================================
+   RESPONSIVE ADJUSTMENTS
+   ===================================================== */
+
+@media (max-width: 768px) {
+  .degen-dropdown {
+    min-width: 180px;
+  }
+
+  .degen-vision-badge {
+    font-size: 18px;
+    padding: 3px 8px;
+  }
+
+  .degen-dropdown-item {
+    font-size: 18px;
+    padding: 8px 12px;
+  }
+}
+
+/* =====================================================
+   SPECIAL EFFECTS
+   ===================================================== */
+
+/* Scanline effect (subtle) */
+.degen-dropdown::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: repeating-linear-gradient(
+    0deg,
+    rgba(0, 0, 0, 0.1),
+    rgba(0, 0, 0, 0.1) 1px,
+    transparent 1px,
+    transparent 2px
+  );
+  pointer-events: none;
+  z-index: 1;
+  opacity: 0.3;
+}
+
+/* CRT flicker effect */
+@keyframes degenFlicker {
+  0%, 100% { opacity: 1; }
+  92% { opacity: 1; }
+  93% { opacity: 0.8; }
+  94% { opacity: 1; }
+  97% { opacity: 0.9; }
+  98% { opacity: 1; }
+}
+
+.degen-dropdown.visible {
+  animation: degenMenuSlideIn 0.2s ease, degenFlicker 4s infinite;
+}
+
+/* Ensure menu items are above scanlines */
+.degen-dropdown-item,
+.degen-dropdown-header {
+  position: relative;
+  z-index: 2;
+}

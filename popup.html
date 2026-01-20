@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Degen Vision Settings</title>
+  <link rel="stylesheet" href="popup.css">
+</head>
+<body>
+  <div class="container">
+    <div class="header">
+      <h1>🧢 Degen Vision</h1>
+      <p class="subtitle">No keys, just vibes</p>
+    </div>
+
+    <div class="content">
+      <div class="setting-group">
+        <label for="coin-select">Base Coin</label>
+        <select id="coin-select">
+          <option value="SOL">Solana ($SOL)</option>
+          <option value="DOGE">Dogecoin ($DOGE)</option>
+          <option value="BTC">Bitcoin ($BTC)</option>
+        </select>
+      </div>
+
+      <div class="info">
+        <p>💡 Prices on Amazon will be converted to your selected coin.</p>
+        <p class="rate-info">
+          Current mock rates:<br>
+          1 SOL = $150<br>
+          1 DOGE = $0.15<br>
+          1 BTC = $45,000
+        </p>
+      </div>
+
+      <div class="footer">
+        <p class="version">v1.0.0</p>
+      </div>
+    </div>
+  </div>
+
+  <script src="popup.js"></script>
+</body>
+</html>

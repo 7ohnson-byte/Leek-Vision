@@ -1,0 +1,37 @@
+{
+  "manifest_version": 3,
+  "name": "Leek Vision | 韭菜眼镜",
+  "version": "1.0.0",
+  "description": "Don't spend, HODL. Automatically convert boring fiat prices into Crypto & Meme coins. 戴上韭菜眼镜，万物皆可币本位。",
+  "permissions": [
+    "storage",
+    "activeTab"
+  ],
+  "host_permissions": [
+    "<all_urls>",
+    "https://api.geckoterminal.com/*"
+  ],
+  "content_scripts": [
+    {
+      "matches": [
+        "<all_urls>"
+      ],
+      "css": ["styles.css"],
+      "js": ["content.js"],
+      "run_at": "document_end"
+    }
+  ],
+  "action": {
+    "default_popup": "popup.html",
+    "default_icon": {
+      "16": "icon.jpeg",
+      "48": "icon.jpeg",
+      "128": "icon.jpeg"
+    }
+  },
+  "icons": {
+    "16": "icon.jpeg",
+    "48": "icon.jpeg",
+    "128": "icon.jpeg"
+  }
+}
