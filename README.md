@@ -1,3 +1,7 @@
+![Project Banner](images/你的图片文件名.png)
+
+# Leek Vision | 韭菜眼镜
+...
 # 🧢 Degen Vision
 
 A satirical Chrome Extension that converts boring Fiat prices on websites into Crypto/Meme coin prices. No keys, just vibes.
