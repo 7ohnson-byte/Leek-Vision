@@ -11,36 +11,52 @@
    ===================================================== */
 
 .degen-vision-badge {
-  background: linear-gradient(135deg, #9945FF, #14F195) !important;
+  /* Layout Stability */
+  display: inline-flex !important;
+  align-items: center !important;
+  vertical-align: middle !important;
+
+  /* Spacing */
+  margin-left: 4px !important;
+  margin-right: 0 !important;
+  padding: 2px 6px !important;
+
+  /* Styling */
+  background: linear-gradient(90deg, #667eea 0%, #764ba2 100%) !important;
   color: #ffffff !important;
-  border: 2px solid #000000 !important;
-  border-radius: 0.25em !important;
-  padding: 0.15em 0.4em !important;
+  border: none !important;
+  border-radius: 4px !important;
+
+  /* Typography */
   font-family: 'VT323', monospace !important;
   font-size: 0.85em !important;
-  font-weight: normal !important;
-  margin-left: 0.4em !important;
-  display: inline-block !important;
-  vertical-align: middle !important;
-  cursor: pointer !important;
-  user-select: none !important;
-  transition: all 0.1s ease !important;
-  position: relative !important;
-  box-shadow: 0.2em 0.2em 0px #000000 !important;
-  text-shadow: 0.1em 0.1em 0px rgba(0, 0, 0, 0.3) !important;
+  font-weight: bold !important;
   line-height: 1.2 !important;
   white-space: nowrap !important;
+
+  /* Position & Z-Index */
+  position: relative !important;
+  z-index: 1000 !important;
+
+  /* Effects */
+  cursor: pointer !important;
+  user-select: none !important;
+  transition: all 0.15s ease !important;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.2) !important;
+
+  /* Prevent layout shifts */
+  flex-shrink: 0 !important;
 }
 
 .degen-vision-badge:hover {
-  background: linear-gradient(135deg, #14F195, #9945FF) !important;
-  transform: translate(-0.1em, -0.1em);
-  box-shadow: 0.3em 0.3em 0px #000000 !important;
+  background: linear-gradient(90deg, #764ba2 0%, #667eea 100%) !important;
+  transform: translateY(-1px);
+  box-shadow: 0 4px 8px rgba(0,0,0,0.3) !important;
 }
 
 .degen-vision-badge:active {
-  transform: translate(0.1em, 0.1em);
-  box-shadow: 0.1em 0.1em 0px #000000 !important;
+  transform: translateY(0);
+  box-shadow: 0 2px 4px rgba(0,0,0,0.2) !important;
 }
 
 /* Searching state animation */

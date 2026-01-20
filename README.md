@@ -1,9 +1,3 @@
-<img src="icon.jpeg" width="100%" alt="...">
-
-<div align="center">
-  <img src="icon.jpeg" width="80%" alt="Leek Vision Banner">
-  </div>
-
 # 🧢 Degen Vision
 
 A satirical Chrome Extension that converts boring Fiat prices on websites into Crypto/Meme coin prices. No keys, just vibes.
