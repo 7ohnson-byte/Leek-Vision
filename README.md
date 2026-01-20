@@ -1,4 +1,4 @@
-![Project Banner](images/你的图片文件名.png)
+![Project Banner](icon.jpeg)
 
 # Leek Vision | 韭菜眼镜
 ...
