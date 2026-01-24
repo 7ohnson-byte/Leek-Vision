@@ -1,0 +1,380 @@
+/* =====================================================
+   LEEK VISION - FINAL UI (With Smooth Resize)
+   ===================================================== */
+
+@import url('https://fonts.googleapis.com/css2?family=Pixelify+Sans:wght@400;500;700&display=swap');
+
+/* --- 1. BADGES (PRICE TAGS) --- */
+.degen-vision-badge {
+  /* Common Visuals */
+  background-color: #000000 !important;
+  color: #00FF00 !important;
+  border: 2px solid #000000 !important;
+  border-radius: 4px !important;
+  padding: 3px 8px !important;
+  
+  font-family: 'Pixelify Sans', sans-serif !important;
+  font-size: 14px !important; 
+  font-weight: 700 !important;
+  line-height: 1 !important;
+  white-space: nowrap !important;
+  
+  box-shadow: 2px 2px 0px rgba(0,0,0,0.3) !important;
+  cursor: pointer !important;
+  user-select: none !important;
+  transition: transform 0.1s ease !important;
+  z-index: 2147483646 !important;
+}
+
+.degen-vision-badge:hover {
+  background-color: #00FF00 !important;
+  color: #000000 !important;
+  z-index: 2147483647 !important;
+  transform: scale(1.05) translateY(-2px) !important;
+  box-shadow: 4px 4px 0px rgba(0,0,0,0.4) !important;
+}
+
+/* --- 2. LAYOUT MODES --- */
+/* Ghost Mode (Taobao) */
+body.leek-layout-ghost .degen-vision-badge {
+  position: absolute !important;
+  left: 100% !important; 
+  top: 50% !important; 
+  transform: translateY(-50%) translateX(4px) !important;
+  margin: 0 !important;
+  display: inline-flex !important;
+  align-items: center !important;
+}
+body.leek-layout-ghost .degen-vision-badge:hover {
+  transform: translateY(-50%) translateX(4px) scale(1.1) !important;
+}
+
+/* Flow Mode (Apple/Amazon) */
+body.leek-layout-flow .degen-vision-badge {
+  position: relative !important;
+  display: inline-flex !important;
+  vertical-align: middle !important;
+  margin-left: 6px !important;
+  top: -1px !important;
+  transform: none !important;
+}
+body.leek-layout-flow .degen-vision-badge:hover {
+  transform: translateY(-2px) !important;
+}
+
+/* --- 3. DROPDOWN MENU --- */
+.degen-dropdown {
+  display: none;
+  position: fixed;
+  z-index: 2147483647 !important;
+  background-color: #c0c0c0 !important; 
+  padding: 10px !important;
+  min-width: 180px !important;
+  border-top: 4px solid #ffffff !important;
+  border-left: 4px solid #ffffff !important;
+  border-right: 4px solid #808080 !important;
+  border-bottom: 4px solid #808080 !important;
+  box-shadow: 8px 8px 0px rgba(0,0,0,0.5) !important; 
+  font-family: 'Pixelify Sans', sans-serif !important;
+  animation: popIn 0.15s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.degen-dropdown * {
+  font-family: 'Pixelify Sans', sans-serif !important;
+}
+
+@keyframes popIn {
+  from { transform: scale(0.8) translateY(10px); opacity: 0; }
+  to { transform: scale(1) translateY(0); opacity: 1; }
+}
+
+.degen-dropdown.visible { display: block; }
+
+.degen-dropdown-header {
+  color: #000000 !important;
+  font-size: 12px !important;
+  font-weight: 700 !important;
+  margin-bottom: 8px !important;
+  border-bottom: 2px solid #808080 !important;
+  padding-bottom: 4px !important;
+  text-transform: uppercase !important;
+}
+
+.degen-dropdown-item {
+  display: flex !important;
+  align-items: center !important;
+  gap: 10px !important;
+  padding: 8px 10px !important;
+  margin-bottom: 6px !important;
+  background-color: #000000 !important; 
+  color: #ffffff !important;
+  border: 2px solid #000000 !important; 
+  border-radius: 4px !important; 
+  font-size: 16px !important;
+  font-weight: 500 !important;
+  cursor: pointer !important;
+  box-shadow: inset 0 0 0 1px #333 !important;
+}
+
+.degen-dropdown-item:hover {
+  border-color: #00FF00 !important;
+  color: #00FF00 !important;
+  box-shadow: 0 0 8px rgba(0, 255, 0, 0.6) !important;
+}
+
+.degen-dropdown-item.active {
+  background-color: #00FF00 !important;
+  color: #000000 !important;
+  border-color: #00FF00 !important;
+  font-weight: 700 !important;
+}
+
+/* --- 4. PET --- */
+.degen-pet {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  z-index: 2147483647; 
+  cursor: grab;
+  transition: none; 
+}
+.degen-pet.pet-transition { transition: top 1.5s ease-in-out, left 1.5s ease-in-out; }
+.degen-pet:active { cursor: grabbing; }
+.degen-pet-avatar {
+  width: 128px; height: 128px;
+  image-rendering: pixelated; 
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: contain;
+  filter: drop-shadow(4px 4px 0px rgba(0,0,0,0.5)); 
+  transition: transform 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275); 
+}
+.degen-pet-avatar.is-running { animation: hop 0.3s infinite alternate; }
+@keyframes hop { from { transform: translateY(0); } to { transform: translateY(-8px); } }
+
+/* --- 5. CHAT AGENT (Fixed Input + Smooth Resize) --- */
+
+.leek-agent-dialog {
+  display: none;
+  position: fixed;
+  bottom: 160px; right: 20px;
+  
+  /* 初始尺寸 */
+  width: 320px;
+  height: 450px;
+  
+  background-color: #111 !important;
+  border: 3px solid #9945FF !important; /* AI Purple */
+  border-radius: 12px !important;
+  padding: 0 !important;
+  z-index: 2147483647 !important;
+  font-family: 'Pixelify Sans', sans-serif !important;
+  
+  /* 阴影 */
+  box-shadow: 0 0 20px rgba(153, 69, 255, 0.4), 8px 8px 0px #000 !important;
+  
+  /* 🟢 核心动画: 丝滑放大缩小 🟢 */
+  transition: all 0.4s cubic-bezier(0.25, 0.8, 0.25, 1) !important;
+  
+  /* 弹性布局，保证内容撑开 */
+  flex-direction: column !important;
+  overflow: hidden !important; 
+}
+
+/* 🟢 放大后的状态 */
+.leek-agent-dialog.expanded {
+  width: 600px !important;
+  height: 70vh !important; /* 占据屏幕高度的70% */
+  border-color: #00FF00 !important; /* 变绿 */
+  box-shadow: 0 0 30px rgba(0, 255, 0, 0.3), 12px 12px 0px #000 !important;
+}
+
+.leek-agent-dialog.visible { display: flex !important; flex-direction: column !important; }
+
+/* Header */
+.agent-header {
+  background: #9945FF !important;
+  color: #fff !important;
+  padding: 10px 14px !important;
+  font-size: 14px !important;
+  font-weight: 700 !important;
+  display: flex; justify-content: space-between; align-items: center;
+  border-bottom: 3px solid #000 !important;
+  transition: background 0.4s ease !important;
+}
+
+/* 放大时头部也变绿 */
+.leek-agent-dialog.expanded .agent-header {
+  background: #00FF00 !important;
+  color: #000 !important;
+}
+
+/* 控制按钮组 */
+.agent-controls {
+  display: flex !important;
+  gap: 12px !important;
+}
+
+.agent-btn {
+  cursor: pointer !important;
+  font-size: 16px !important;
+  line-height: 1 !important;
+  transition: transform 0.2s !important;
+  opacity: 0.8 !important;
+}
+.agent-btn:hover {
+  transform: scale(1.2) !important;
+  opacity: 1 !important;
+}
+
+/* Body */
+.agent-body {
+  padding: 12px !important;
+  /* 自动填满剩余空间 */
+  flex: 1 !important; 
+  height: auto !important;
+  
+  overflow-y: auto !important;
+  color: #fff !important;
+  font-size: 14px !important;
+  line-height: 1.5 !important;
+  background: #1a1a1a !important;
+  scroll-behavior: smooth !important;
+}
+
+.chat-msg {
+  margin-bottom: 12px !important;
+  padding: 10px !important;
+  border-radius: 6px !important;
+  word-wrap: break-word !important;
+  max-width: 100% !important;
+}
+.msg-user {
+  background: #333 !important;
+  color: #ccc !important;
+  border-left: 2px solid #666 !important;
+}
+.msg-ai {
+  background: rgba(153, 69, 255, 0.15) !important;
+  border-left: 2px solid #9945FF !important;
+  color: #fff !important;
+}
+
+/* Input Area */
+.agent-input-area {
+  padding: 10px !important;
+  background: #000 !important;
+  border-top: 2px solid #333 !important;
+  display: flex !important;
+  gap: 8px !important;
+  flex-shrink: 0 !important; /* 防止被压缩 */
+}
+
+/* 🟢 INPUT FIX: Force Black Background & White Text 🟢 */
+.agent-input {
+  flex: 1;
+  background-color: #222 !important;
+  color: #ffffff !important;
+  border: 1px solid #444 !important;
+  padding: 10px !important;
+  font-family: 'Pixelify Sans', sans-serif !important;
+  border-radius: 4px !important;
+  outline: none !important;
+  font-size: 14px !important;
+}
+.agent-input:focus {
+  border-color: #9945FF !important;
+  background-color: #2a2a2a !important;
+}
+
+.agent-send-btn {
+  background: #9945FF !important;
+  color: #fff !important;
+  border: none !important;
+  padding: 0 12px !important;
+  cursor: pointer !important;
+  font-family: inherit !important;
+  font-weight: 700 !important;
+  border-radius: 4px !important;
+}
+.agent-send-btn:hover { background: #b06bff !important; }
+
+.agent-loading {
+  display: inline-block; width: 12px; height: 12px;
+  border: 2px solid #fff; border-radius: 50%;
+  border-top-color: transparent;
+  animation: spin 1s linear infinite;
+}
+@keyframes spin { to { transform: rotate(360deg); } }
+
+/* =====================================================
+   LEEK AGENT - CLEAN REPORT STYLE
+   ===================================================== */
+
+/* 优化聊天气泡的基础样式 */
+.chat-msg {
+  margin-bottom: 12px !important;
+  padding: 12px 14px !important;
+  border-radius: 8px !important;
+  font-size: 14px !important;
+  line-height: 1.6 !important;
+  max-width: 100% !important;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.2) !important;
+}
+
+/* 用户消息：保持简单 */
+.msg-user {
+  background: #333 !important;
+  color: #ccc !important;
+  border-left: 2px solid #666 !important;
+}
+
+/* AI 消息：研报风格 */
+.msg-ai {
+  background: rgba(20, 20, 20, 0.95) !important; /* 深黑背景 */
+  border: 1px solid #333 !important;
+  border-left: 3px solid #00FF00 !important; /* 绿色侧边 */
+  color: #ddd !important;
+}
+
+/* --- 🌟 迷你渲染器样式 (Markdown Styles) --- */
+
+/* 标题 (### Title) */
+.report-header {
+  color: #00FF00 !important; /* 亮绿色标题 */
+  font-size: 15px !important;
+  font-weight: 800 !important;
+  margin-top: 12px !important;
+  margin-bottom: 6px !important;
+  text-transform: uppercase !important;
+  letter-spacing: 0.5px !important;
+  border-bottom: 1px dashed rgba(0, 255, 0, 0.3) !important;
+  padding-bottom: 4px !important;
+}
+/* 第一个标题去掉顶部边距 */
+.report-header:first-child { margin-top: 0 !important; }
+
+/* 重点文字 (**Bold**) */
+.report-highlight {
+  color: #fff !important;
+  font-weight: 700 !important;
+  background: rgba(153, 69, 255, 0.2) !important; /* 紫色高亮背景 */
+  padding: 0 4px !important;
+  border-radius: 3px !important;
+}
+
+/* 列表项 (- Item) */
+.report-list-item {
+  display: flex !important;
+  align-items: flex-start !important;
+  margin-bottom: 4px !important;
+  padding-left: 4px !important;
+}
+
+/* 列表前的装饰点 */
+.report-bullet {
+  color: #9945FF !important; /* 紫色子弹头 */
+  margin-right: 8px !important;
+  font-size: 12px !important;
+  line-height: 1.6 !important;
+}
