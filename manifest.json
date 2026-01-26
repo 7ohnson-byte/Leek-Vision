@@ -1,0 +1,51 @@
+{
+  "manifest_version": 3,
+  "name": "Leek Vision | 韭菜眼镜",
+  "version": "3.0",
+  "description": "Turn shopping sites into Crypto & Analyze tokens with AI.",
+  "permissions": ["storage", "activeTab"],
+  "host_permissions": ["<all_urls>"],
+  "background": {
+    "service_worker": "background.js"
+  },
+  "content_scripts": [
+    {
+      "matches": ["<all_urls>"],
+      "js": [
+        "audio-engine.js",
+        "skin-database.js",
+        "skin-manager.js",
+        "market-mood.js",
+        "roasting-agent.js",
+        "content.js",
+        "content-enhanced.js"
+      ],
+      "css": [
+        "styles.css",
+        "styles-enhanced.css",
+        "styles-minecraft-ui.css",
+        "styles-skin-showcase.css",
+        "styles-market-mood.css"
+      ]
+    }
+  ],
+  "action": {
+    "default_popup": "popup.html",
+    "default_icon": {
+      "16": "images/icon.png",
+      "48": "images/icon.png",
+      "128": "images/icon.png"
+    }
+  },
+  "icons": {
+    "16": "images/icon.png",
+    "48": "images/icon.png",
+    "128": "images/icon.png"
+  },
+  "web_accessible_resources": [
+    {
+      "resources": ["images/*.gif", "images/*.png", "images/*.jpg", "audio/*.mp3"],
+      "matches": ["<all_urls>"]
+    }
+  ]
+}

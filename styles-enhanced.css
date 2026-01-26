@@ -1,0 +1,981 @@
+/* =====================================================
+   LEEK VISION v3.11 - UI/UX ENHANCED EDITION
+   改进: Neo-brutalism 微交互 + 现代 easing 曲线
+   ===================================================== */
+
+@import url('https://fonts.googleapis.com/css2?family=Pixelify+Sans:wght@400;700&display=swap');
+
+/* -----------------------------------------------------
+   1. 基础样式 (保持不变 - 配合 JS 逻辑)
+----------------------------------------------------- */
+body.leek-layout-ghost .tb-rmb-num,
+body.leek-layout-ghost .rmb-num,
+body.leek-layout-ghost .price-value,
+body.leek-layout-ghost [class*="price"] {
+    display: inline-block !important;
+    position: relative !important;
+    overflow: visible !important;
+    white-space: normal !important;
+}
+
+/* -----------------------------------------------------
+   2. 价格标签 (🟢 增强版: 弹性动画 + 霓虹光晕)
+----------------------------------------------------- */
+.degen-vision-badge {
+    display: inline-flex; align-items: center;
+    background: #000; color: #00FF00;
+    font-family: 'Pixelify Sans', 'Courier New', monospace;
+    font-weight: 700; font-size: 12px;
+    padding: 3px 6px; border: 2px solid #00FF00;
+    border-radius: 4px; cursor: pointer;
+    box-shadow: 2px 2px 0px rgba(0,0,0,0.5);
+    margin-left: 6px; z-index: 9999;
+    /* 🟢 改进: 使用弹性曲线 */
+    transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+    position: relative;
+    overflow: hidden;
+}
+
+/* 🟢 新增: 霓虹光晕效果 */
+.degen-vision-badge::before {
+    content: '';
+    position: absolute;
+    top: 0; left: -100%;
+    width: 100%; height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(0, 255, 0, 0.3), transparent);
+    transition: left 0.5s;
+}
+
+.degen-vision-badge:hover {
+    transform: scale(1.15) translateY(-2px);
+    background: #0a0a0a;
+    box-shadow: 0 0 15px rgba(0, 255, 0, 0.6), 2px 2px 0px rgba(0,0,0,0.5);
+}
+
+.degen-vision-badge:hover::before {
+    left: 100%;
+}
+
+.degen-vision-badge:active {
+    transform: scale(0.95);
+}
+
+/* -----------------------------------------------------
+   3. 币种菜单 (🟢 增强版: 弹性下拉 + 条目动画)
+----------------------------------------------------- */
+.degen-dropdown {
+    position: fixed; background: #000; border: 2px solid #00FF00;
+    box-shadow: 4px 4px 0px #004400; z-index: 99999;
+    display: none; font-family: 'Pixelify Sans', monospace; min-width: 120px;
+    /* 🟢 改进: 弹性下拉动画 */
+    transform-origin: top;
+    transform: scaleY(0);
+    opacity: 0;
+}
+
+.degen-dropdown.visible {
+    display: block;
+    animation: dropdownExpand 0.3s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+}
+
+@keyframes dropdownExpand {
+    from {
+        transform: scaleY(0);
+        opacity: 0;
+    }
+    to {
+        transform: scaleY(1);
+        opacity: 1;
+    }
+}
+
+.degen-dropdown-header {
+    background: #00FF00; color: #000; font-weight: bold; padding: 6px 10px; font-size: 12px;
+}
+
+.degen-dropdown-item {
+    padding: 8px 10px; color: #00FF00; cursor: pointer; display: flex; align-items: center;
+    font-size: 13px;
+    /* 🟢 改进: 条目交错动画 */
+    opacity: 0;
+    transform: translateX(-10px);
+    animation: slideIn 0.3s forwards;
+}
+
+.degen-dropdown-item:nth-child(2) { animation-delay: 0.05s; }
+.degen-dropdown-item:nth-child(3) { animation-delay: 0.1s; }
+.degen-dropdown-item:nth-child(4) { animation-delay: 0.15s; }
+.degen-dropdown-item:nth-child(5) { animation-delay: 0.2s; }
+
+@keyframes slideIn {
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+.degen-dropdown-item:hover {
+    background: rgba(0, 255, 0, 0.2);
+    transform: translateX(5px);
+}
+
+.degen-dropdown-item.active {
+    background: rgba(0, 255, 0, 0.4); font-weight: bold;
+}
+
+/* -----------------------------------------------------
+   4. 电子宠物 (🟢 增强版: 弹性呼吸 + 像素噪点)
+----------------------------------------------------- */
+.degen-pet {
+    position: fixed; bottom: 20px; right: 20px;
+    width: 100px; height: 100px;
+    z-index: 2147483646; cursor: pointer; image-rendering: pixelated;
+    filter: drop-shadow(4px 4px 0px rgba(0,0,0,0.5));
+    /* 🟢 改进: 更流畅的过渡 */
+    transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+    transform: translateY(100px); opacity: 0;
+}
+
+.pet-transition {
+    transition: all 0.6s cubic-bezier(0.34, 1.56, 0.64, 1);
+    transform: translateY(0); opacity: 1;
+}
+
+/* 🟢 新增: 待机呼吸动画 */
+.degen-pet:not(:hover) .degen-pet-avatar:not(.is-running) {
+    animation: pixelBreath 2s ease-in-out infinite;
+}
+
+@keyframes pixelBreath {
+    0%, 100% { transform: scale(1); }
+    50% { transform: scale(1.05); }
+}
+
+.degen-pet:hover {
+    transform: scale(1.15) translateY(-5px);
+    filter: drop-shadow(6px 6px 0px rgba(0,255,0,0.3));
+}
+
+.degen-pet:active {
+    transform: scale(0.95);
+}
+
+.degen-pet-avatar {
+    width: 100%; height: 100%; background-size: contain; background-repeat: no-repeat;
+    /* 🟢 改进: 添加像素噪点纹理 */
+    position: relative;
+}
+
+.degen-pet-avatar::after {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; width: 100%; height: 100%;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 100 100' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.05'/%3E%3C/svg%3E");
+    pointer-events: none;
+    opacity: 0.3;
+}
+
+.degen-pet-avatar.is-running {
+    width: 120px; height: 120px; position: relative; top: -20px; left: -10px;
+    /* 🟢 改进: 运行时添加拖尾效果 */
+    animation: pixelRun 0.1s steps(2) infinite;
+}
+
+@keyframes pixelRun {
+    0% { filter: brightness(1); }
+    50% { filter: brightness(1.2); }
+    100% { filter: brightness(1); }
+}
+
+/* -----------------------------------------------------
+   5. Chat UI (🟢 增强版: 现代紫色 + 流畅消息动画)
+----------------------------------------------------- */
+.leek-agent-dialog {
+    position: fixed; bottom: 130px; right: 20px; width: 340px; height: 480px;
+    background: #111 !important;
+    border: 3px solid #9945FF !important;
+    border-radius: 16px !important;
+    box-shadow: 0 10px 30px rgba(153, 69, 255, 0.2) !important;
+    z-index: 2147483647;
+    display: none; flex-direction: column;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif !important;
+    overflow: hidden;
+}
+
+.leek-agent-dialog.visible {
+    display: flex;
+    /* 🟢 改进: 更流畅的进入动画 */
+    animation: slideUpFade 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+@keyframes slideUpFade {
+    from {
+        transform: translateY(30px) scale(0.95);
+        opacity: 0;
+    }
+    to {
+        transform: translateY(0) scale(1);
+        opacity: 1;
+    }
+}
+
+.leek-agent-dialog.expanded {
+    width: 500px; height: 700px;
+    transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.agent-header {
+    background: linear-gradient(135deg, #9945FF 0%, #b06bff 100%) !important;
+    color: #fff !important; padding: 14px 18px; font-weight: 700;
+    display: flex; justify-content: space-between; align-items: center;
+    font-size: 16px; letter-spacing: 0.5px;
+    /* 🟢 新增: 紫色光晕效果 */
+    box-shadow: 0 2px 10px rgba(153, 69, 255, 0.3);
+}
+
+.agent-controls span {
+    cursor: pointer; margin-left: 14px; opacity: 0.8; font-size: 18px;
+    transition: all 0.2s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.agent-controls span:hover {
+    opacity: 1;
+    transform: scale(1.2);
+}
+
+.agent-controls span:active {
+    transform: scale(0.9);
+}
+
+.agent-body {
+    flex-grow: 1; padding: 16px; overflow-y: auto;
+    background: #1a1a1a !important; display: flex; flex-direction: column; gap: 14px;
+    /* 🟢 改进: 自定义滚动条 */
+    scrollbar-width: thin;
+    scrollbar-color: #9945FF #1a1a1a;
+}
+
+.agent-body::-webkit-scrollbar {
+    width: 6px;
+}
+
+.agent-body::-webkit-scrollbar-track {
+    background: #1a1a1a;
+}
+
+.agent-body::-webkit-scrollbar-thumb {
+    background: #9945FF;
+    border-radius: 3px;
+}
+
+/* 🟢 改进: 消息进入动画 */
+.chat-msg {
+    max-width: 88%; padding: 12px 16px; font-size: 14px; line-height: 1.5;
+    border-radius: 12px;
+    animation: messageSlide 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+@keyframes messageSlide {
+    from {
+        transform: translateY(10px);
+        opacity: 0;
+    }
+    to {
+        transform: translateY(0);
+        opacity: 1;
+    }
+}
+
+.msg-ai {
+    align-self: flex-start;
+    background: #2a2a2a !important;
+    border-left: 4px solid #9945FF !important;
+    color: #ffffff !important;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.3);
+    border: none;
+}
+
+.msg-user {
+    align-self: flex-end;
+    background: linear-gradient(135deg, #9945FF 0%, #b06bff 100%) !important;
+    color: #fff !important;
+    box-shadow: 0 4px 12px rgba(153, 69, 255, 0.3);
+    border: none;
+}
+
+.agent-input-area {
+    padding: 14px; background: #111 !important; display: flex; gap: 10px;
+    border-top: 1px solid #333 !important;
+}
+
+.agent-input {
+    flex-grow: 1; background: #222 !important; border: 2px solid #333 !important;
+    color: #fff !important; padding: 10px 14px; border-radius: 8px !important;
+    outline: none; transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+    font-family: inherit !important;
+}
+
+.agent-input:focus {
+    border-color: #9945FF !important;
+    box-shadow: 0 0 0 3px rgba(153, 69, 255, 0.1);
+}
+
+.agent-send-btn {
+    background: #9945FF !important; color: #fff !important; border: none;
+    padding: 0 18px; border-radius: 8px !important; font-weight: bold;
+    cursor: pointer;
+    transition: all 0.2s cubic-bezier(0.34, 1.56, 0.64, 1);
+    box-shadow: 0 4px 12px rgba(153, 69, 255, 0.3);
+}
+
+.agent-send-btn:hover {
+    background: #b06bff !important;
+    transform: translateY(-2px);
+    box-shadow: 0 6px 16px rgba(153, 69, 255, 0.4);
+}
+
+.agent-send-btn:active {
+    transform: translateY(0);
+}
+
+/* 🟢 新增: AI Loading 动画 */
+.agent-loading {
+    display: inline-block;
+    width: 12px; height: 12px;
+    background: #9945FF;
+    border-radius: 50%;
+    animation: pulse 1s ease-in-out infinite;
+}
+
+@keyframes pulse {
+    0%, 100% {
+        transform: scale(0.8);
+        opacity: 0.5;
+    }
+    50% {
+        transform: scale(1.2);
+        opacity: 1;
+    }
+}
+
+/* 研报样式 (Modern Purple) */
+.report-header {
+    color: #9945FF !important; font-weight: 800; margin-top: 8px; font-size: 15px;
+    text-transform: uppercase;
+}
+
+.report-highlight {
+    background: linear-gradient(135deg, rgba(153, 69, 255, 0.2) 0%, rgba(153, 69, 255, 0.1) 100%) !important;
+    color: #fff !important; padding: 2px 6px; border-radius: 4px; font-weight: 600;
+    border: none !important;
+}
+
+.report-list-item { margin-bottom: 4px; display: flex; }
+.report-bullet { color: #9945FF !important; margin-right: 6px; }
+
+/* -----------------------------------------------------
+   6. Web3 晒单卡片 (🟢 增强版: 复古质感 + 像素阴影)
+----------------------------------------------------- */
+.leek-share-btn {
+    display: inline-block; margin-left: 6px; cursor: pointer; font-size: 14px;
+    opacity: 0.7;
+    transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+    vertical-align: middle;
+}
+
+.leek-share-btn:hover {
+    transform: scale(1.3) rotate(10deg);
+    opacity: 1;
+    filter: drop-shadow(0 0 8px #00FF00);
+}
+
+.leek-share-btn:active {
+    transform: scale(1.1) rotate(5deg);
+}
+
+.leek-share-modal {
+    position: fixed; top: 0; left: 0; width: 100vw; height: 100vh;
+    background: rgba(0,0,0,0.85); backdrop-filter: blur(8px);
+    display: flex; justify-content: center; align-items: center;
+    z-index: 2147483647; font-family: 'Pixelify Sans', monospace;
+    animation: fadeInBlur 0.3s ease-out;
+}
+
+@keyframes fadeInBlur {
+    from {
+        opacity: 0;
+        backdrop-filter: blur(0px);
+    }
+    to {
+        opacity: 1;
+        backdrop-filter: blur(8px);
+    }
+}
+
+.leek-controller-card {
+    background: linear-gradient(145deg, #2b2b2b 0%, #1a1a1a 100%);
+    width: 340px; padding: 15px; border: 4px solid #000;
+    /* 🟢 改进: 更深层的像素阴影 */
+    box-shadow:
+        12px 12px 0px rgba(0,0,0,0.8),
+        8px 8px 0px rgba(0,0,0,0.6),
+        4px 4px 0px rgba(0,0,0,0.4);
+    position: relative;
+    overflow: hidden;
+    transform: scale(0.8);
+    animation: popInBounce 0.4s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+}
+
+@keyframes popInBounce {
+    0% {
+        transform: scale(0.8) translateY(20px);
+        opacity: 0;
+    }
+    50% {
+        transform: scale(1.05) translateY(-5px);
+    }
+    100% {
+        transform: scale(1) translateY(0);
+        opacity: 1;
+    }
+}
+
+/* 🟢 新增: 像素网格纹理 */
+.leek-controller-card::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; width: 100%; height: 100%;
+    background-image:
+        linear-gradient(rgba(255,255,255,0.02) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255,255,255,0.02) 1px, transparent 1px);
+    background-size: 4px 4px;
+    pointer-events: none;
+    z-index: 0;
+}
+
+/* 动态水印 */
+.watermark-layer {
+    position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+    background-repeat: repeat; background-size: 80px 80px;
+    opacity: 0.05; pointer-events: none; z-index: 0;
+    animation: watermarkScroll 20s linear infinite;
+}
+
+@keyframes watermarkScroll {
+    from { background-position: 0 0; }
+    to { background-position: 100% 100%; }
+}
+
+.controller-header {
+    background: #000; border: 4px solid #000; padding: 10px;
+    display: flex; justify-content: space-between; align-items: center;
+    margin-bottom: 15px; position: relative; z-index: 1;
+}
+
+.header-title {
+    color: #00FF00; font-size: 20px; font-weight: 700;
+    text-transform: uppercase;
+    /* 🟢 新增: 像素发光效果 */
+    text-shadow: 0 0 10px rgba(0, 255, 0, 0.5);
+}
+
+.close-btn {
+    color: #666; cursor: pointer; font-size: 20px; font-weight: bold;
+    transition: all 0.2s;
+}
+
+.close-btn:hover {
+    color: #fff;
+    transform: rotate(90deg);
+}
+
+.controller-body { position: relative; z-index: 1; }
+
+.pnl-section { margin-bottom: 15px; }
+
+.label-text {
+    color: #00FF00; font-size: 12px; margin-bottom: 5px;
+    text-transform: uppercase; font-weight: bold;
+}
+
+.token-info-box {
+    font-size: 11px; margin-bottom: 5px; color: #aaa;
+    border-left: 2px solid; padding-left: 6px;
+}
+
+.pnl-display {
+    background: #000; border: 2px solid; padding: 15px;
+    font-size: 28px; font-weight: bold; color: #fff;
+    display: flex; justify-content: space-between; align-items: center;
+    box-shadow:
+        inset 0 0 20px rgba(0,0,0,0.8),
+        inset 2px 2px 0px rgba(255,255,255,0.05);
+}
+
+.mood-tag {
+    font-size: 12px; color: #000; padding: 2px 6px; border-radius: 2px;
+}
+
+.divider-pixel {
+    text-align: center; color: #666; font-size: 12px;
+    margin: 10px 0; font-weight: bold;
+}
+
+.real-world-section {
+    background: rgba(0, 255, 136, 0.1);
+    border: 2px solid #00ff88;
+    padding: 15px 10px;
+    display: flex; align-items: center; justify-content: space-between;
+    margin-bottom: 20px;
+    /* 🟢 新增: 内部发光 */
+    box-shadow: inset 0 0 15px rgba(0, 255, 136, 0.1);
+}
+
+.nav-arrow {
+    cursor: pointer; color: #00ff88; font-size: 24px;
+    user-select: none;
+    transition: all 0.2s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.nav-arrow:hover {
+    transform: scale(1.3);
+    color: #fff;
+    text-shadow: 0 0 10px #00ff88;
+}
+
+.nav-arrow:active {
+    transform: scale(0.9);
+}
+
+.item-display {
+    flex-grow: 1; text-align: center; color: #fff;
+}
+
+.rw-icon {
+    font-size: 42px; display: block; margin-bottom: 5px;
+    /* 🟢 新增: 图标弹跳动画 */
+    animation: iconBounce 0.5s ease-out;
+}
+
+@keyframes iconBounce {
+    0% { transform: scale(0); }
+    50% { transform: scale(1.2); }
+    100% { transform: scale(1); }
+}
+
+.rw-qty {
+    font-size: 24px; font-weight: bold; color: #00ff88;
+}
+
+.rw-unit { font-size: 12px; color: #aaa; }
+
+.rw-name {
+    font-size: 14px; margin-top: 5px; font-weight: bold;
+}
+
+.action-btn {
+    width: 100%; padding: 15px;
+    background: linear-gradient(135deg, #1DA1F2 0%, #0d8bd9 100%);
+    color: #fff;
+    border: 4px solid #000;
+    font-family: inherit; font-size: 16px; font-weight: bold;
+    cursor: pointer; text-transform: uppercase;
+    box-shadow: 6px 6px 0px rgba(0,0,0,0.8);
+    transition: all 0.15s cubic-bezier(0.34, 1.56, 0.64, 1);
+    position: relative;
+    overflow: hidden;
+}
+
+/* 🟢 新增: 按钮光效 */
+.action-btn::after {
+    content: '';
+    position: absolute;
+    top: 50%; left: 50%;
+    width: 0; height: 0;
+    background: rgba(255,255,255,0.2);
+    border-radius: 50%;
+    transform: translate(-50%, -50%);
+    transition: width 0.4s, height 0.4s;
+}
+
+.action-btn:hover::after {
+    width: 300px; height: 300px;
+}
+
+.action-btn:hover {
+    transform: translate(-3px, -3px);
+    box-shadow: 9px 9px 0px rgba(0,0,0,0.8);
+}
+
+.action-btn:active {
+    transform: translate(2px, 2px);
+    box-shadow: 2px 2px 0px rgba(0,0,0,0.8);
+}
+
+.card-footer {
+    margin-top: 15px; text-align: center; font-size: 10px;
+    color: #666; text-transform: uppercase;
+}
+
+/* ═══════════════════════════════════════════════════════════════════════════════
+   LEEK JUMP GAME MENU STYLES
+   ═══════════════════════════════════════════════════════════════════════════════ */
+
+.leek-casual-menu {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 2147483648;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    animation: fadeIn 0.2s ease-out;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+.casual-menu-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.7);
+    backdrop-filter: blur(5px);
+}
+
+.casual-menu-content {
+    position: relative;
+    background: linear-gradient(145deg, #2b2b2b 0%, #1a1a1a 100%);
+    border: 4px solid #000;
+    box-shadow:
+        12px 12px 0px rgba(0,0,0,0.8),
+        0 0 30px rgba(0, 255, 0, 0.3);
+    padding: 24px;
+    min-width: 360px;
+    max-width: 400px;
+    font-family: 'Pixelify Sans', monospace;
+    animation: popIn 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+@keyframes popIn {
+    0% {
+        transform: scale(0.8);
+        opacity: 0;
+    }
+    50% {
+        transform: scale(1.05);
+    }
+    100% {
+        transform: scale(1);
+        opacity: 1;
+    }
+}
+
+.casual-menu-content::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image:
+        linear-gradient(rgba(255,255,255,0.02) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255,255,255,0.02) 1px, transparent 1px);
+    background-size: 4px 4px;
+    pointer-events: none;
+    z-index: 0;
+}
+
+.casual-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+    border-bottom: 3px solid #00FF00;
+    padding-bottom: 12px;
+    position: relative;
+    z-index: 1;
+}
+
+.casual-header h2 {
+    color: #00FF00;
+    font-size: 22px;
+    margin: 0;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    text-shadow: 0 0 10px rgba(0, 255, 0, 0.5);
+}
+
+.close-btn {
+    background: #ff0000;
+    border: 3px solid #000;
+    color: #fff;
+    font-size: 20px;
+    font-weight: bold;
+    width: 36px;
+    height: 36px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 3px 3px 0px #000;
+    transition: all 0.1s;
+    position: relative;
+    z-index: 1;
+}
+
+.close-btn:hover {
+    transform: scale(1.1);
+    box-shadow: 4px 4px 0px #000;
+}
+
+.close-btn:active {
+    transform: scale(0.95);
+    box-shadow: inset 2px 2px 0px #000;
+}
+
+.casual-options {
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+    margin-bottom: 24px;
+    position: relative;
+    z-index: 1;
+}
+
+.casual-option {
+    background: #8b8b8b;
+    border: 3px solid #000;
+    box-shadow:
+        inset -3px -3px 0px #3f3f3f,
+        inset 3px 3px 0px #fff;
+    padding: 16px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    position: relative;
+    transition: all 0.15s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.casual-option:hover {
+    background: #9f9f9f;
+    transform: scale(1.02) translateX(-2px);
+    box-shadow:
+        inset -3px -3px 0px #3f3f3f,
+        inset 3px 3px 0px #fff,
+        4px 4px 0px rgba(0,0,0,0.5);
+}
+
+.casual-option:active {
+    background: #6f6f6f;
+    transform: scale(0.98) translateX(0);
+    box-shadow:
+        inset 3px 3px 0px #3f3f3f,
+        inset -3px -3px 0px #9f9f9f;
+}
+
+.casual-option.primary {
+    border-color: #9945FF;
+    box-shadow:
+        inset -3px -3px 0px #3f3f3f,
+        inset 3px 3px 0px #fff,
+        0 0 20px rgba(153, 69, 255, 0.5);
+}
+
+.casual-option.primary:hover {
+    box-shadow:
+        inset -3px -3px 0px #3f3f3f,
+        inset 3px 3px 0px #fff,
+        4px 4px 0px rgba(153, 69, 255, 0.3),
+        0 0 30px rgba(153, 69, 255, 0.7);
+}
+
+.option-icon {
+    font-size: 32px;
+    flex-shrink: 0;
+    filter: drop-shadow(2px 2px 0px rgba(0,0,0,0.5));
+}
+
+.option-details {
+    flex-grow: 1;
+}
+
+.option-text {
+    display: block;
+    font-weight: bold;
+    color: #fff;
+    font-size: 16px;
+    text-shadow: 2px 2px 0px #000;
+    margin-bottom: 4px;
+}
+
+.option-desc {
+    display: block;
+    font-size: 12px;
+    color: #aaa;
+}
+
+.option-arrow {
+    font-size: 20px;
+    color: #fff;
+    opacity: 0.5;
+    transition: all 0.2s;
+}
+
+.casual-option:hover .option-arrow {
+    opacity: 1;
+    transform: translateX(4px);
+}
+
+.option-badge {
+    position: absolute;
+    top: -10px;
+    right: -10px;
+    background: #FFA500;
+    color: #000;
+    font-size: 10px;
+    font-weight: bold;
+    padding: 5px 10px;
+    border: 2px solid #000;
+    box-shadow: 2px 2px 0px #000;
+    animation: badgePulse 1.5s infinite;
+    z-index: 2;
+}
+
+.option-badge.hot {
+    background: #FF4444;
+    color: #FFF;
+    animation: hotBadgePulse 1s infinite;
+}
+
+@keyframes hotBadgePulse {
+    0%, 100% {
+        transform: scale(1);
+        box-shadow: 2px 2px 0px #000, 0 0 10px rgba(255, 68, 68, 0.5);
+    }
+    50% {
+        transform: scale(1.1);
+        box-shadow: 3px 3px 0px #000, 0 0 20px rgba(255, 68, 68, 0.8);
+    }
+}
+
+@keyframes badgePulse {
+    0%, 100% {
+        transform: scale(1);
+        box-shadow: 2px 2px 0px #000;
+    }
+    50% {
+        transform: scale(1.1);
+        box-shadow: 2px 2px 0px #000, 0 0 10px rgba(255, 165, 0, 0.8);
+    }
+}
+
+.game-stats {
+    background: rgba(0, 0, 0, 0.4);
+    border: 2px solid #333;
+    padding: 14px;
+    border-radius: 8px;
+    margin-bottom: 16px;
+    position: relative;
+    z-index: 1;
+}
+
+.stat-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 8px 0;
+    font-size: 13px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.stat-item:last-child {
+    border-bottom: none;
+}
+
+.stat-label {
+    color: #aaa;
+}
+
+.stat-value {
+    color: #00FF00;
+    font-weight: bold;
+    font-size: 14px;
+}
+
+.sf90-bar {
+    background: #000;
+    border: 2px solid #00FF00;
+    height: 12px;
+    margin-top: 8px;
+    position: relative;
+    overflow: hidden;
+}
+
+.sf90-fill {
+    background: repeating-linear-gradient(
+        90deg,
+        #00FF00 0px,
+        #00FF00 4px,
+        #00cc00 4px,
+        #00cc00 8px
+    );
+    height: 100%;
+    transition: width 0.5s ease-out;
+    box-shadow: 0 0 10px rgba(0, 255, 0, 0.5);
+}
+
+.daily-challenge {
+    background: rgba(153, 69, 255, 0.1);
+    border: 2px solid #9945FF;
+    padding: 12px;
+    border-radius: 8px;
+    position: relative;
+    z-index: 1;
+}
+
+.challenge-header {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 8px;
+}
+
+.challenge-icon {
+    font-size: 18px;
+}
+
+.challenge-title {
+    color: #9945FF;
+    font-size: 12px;
+    font-weight: bold;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.challenge-body {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    font-size: 16px;
+    font-weight: bold;
+}
+
+.challenge-target {
+    color: #fff;
+}
+
+.challenge-divider {
+    color: #666;
+}
+
+.challenge-progress {
+    color: #00FF00;
+}

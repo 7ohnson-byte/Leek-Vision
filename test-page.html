@@ -1,0 +1,457 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Leek Vision v3.12 - 测试页面</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Courier New', monospace;
+            background: #1a1a1a;
+            color: #fff;
+            padding: 40px 20px;
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        h1 {
+            color: #00FF00;
+            text-align: center;
+            font-size: 48px;
+            margin-bottom: 20px;
+            text-shadow: 0 0 20px rgba(0, 255, 0, 0.5);
+        }
+
+        .subtitle {
+            text-align: center;
+            color: #aaa;
+            margin-bottom: 60px;
+            font-size: 18px;
+        }
+
+        .test-section {
+            background: #2a2a2a;
+            border: 3px solid #00FF00;
+            padding: 30px;
+            margin-bottom: 30px;
+            box-shadow: 0 0 20px rgba(0, 255, 0, 0.2);
+        }
+
+        .test-section h2 {
+            color: #00FF00;
+            font-size: 24px;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .test-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+        }
+
+        .price-card {
+            background: #000;
+            border: 2px solid #333;
+            padding: 20px;
+            text-align: center;
+            transition: all 0.3s;
+        }
+
+        .price-card:hover {
+            border-color: #00FF00;
+            box-shadow: 0 0 15px rgba(0, 255, 0, 0.3);
+        }
+
+        .price-label {
+            color: #666;
+            font-size: 14px;
+            margin-bottom: 10px;
+        }
+
+        .price-value {
+            color: #fff;
+            font-size: 32px;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+
+        .pnl-display {
+            background: #0a0a0a;
+            border: 2px solid #FF3333;
+            padding: 20px;
+            text-align: center;
+        }
+
+        .pnl-display.profit {
+            border-color: #00FF00;
+        }
+
+        .pnl-value {
+            font-size: 36px;
+            font-weight: bold;
+            color: #FF3333;
+        }
+
+        .pnl-display.profit .pnl-value {
+            color: #00FF00;
+        }
+
+        .info-box {
+            background: rgba(0, 255, 0, 0.1);
+            border: 2px solid #00FF00;
+            padding: 20px;
+            margin-top: 20px;
+            border-radius: 8px;
+        }
+
+        .info-box h3 {
+            color: #00FF00;
+            margin-bottom: 10px;
+        }
+
+        .info-box ul {
+            list-style: none;
+            padding-left: 0;
+        }
+
+        .info-box li {
+            padding: 5px 0;
+            padding-left: 20px;
+            position: relative;
+        }
+
+        .info-box li::before {
+            content: "▶";
+            position: absolute;
+            left: 0;
+            color: #00FF00;
+        }
+
+        .keyboard-hint {
+            background: #000;
+            border: 2px solid #9945FF;
+            padding: 15px;
+            margin-top: 20px;
+            border-radius: 8px;
+        }
+
+        .keyboard-hint h3 {
+            color: #9945FF;
+            margin-bottom: 10px;
+        }
+
+        .key {
+            display: inline-block;
+            background: #333;
+            border: 2px solid #666;
+            border-radius: 4px;
+            padding: 5px 10px;
+            margin: 5px;
+            font-family: monospace;
+            font-size: 14px;
+            box-shadow: 0 3px 0 #000;
+        }
+
+        .status-badge {
+            display: inline-block;
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-size: 14px;
+            font-weight: bold;
+            margin-left: 10px;
+        }
+
+        .status-badge.success {
+            background: #00FF00;
+            color: #000;
+        }
+
+        .status-badge.testing {
+            background: #FFA500;
+            color: #000;
+        }
+
+        footer {
+            text-align: center;
+            margin-top: 60px;
+            padding-top: 40px;
+            border-top: 2px solid #333;
+            color: #666;
+        }
+
+        .feature-list {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 15px;
+            margin-top: 20px;
+        }
+
+        .feature-item {
+            background: rgba(153, 69, 255, 0.1);
+            border: 2px solid #9945FF;
+            padding: 15px;
+            border-radius: 8px;
+        }
+
+        .feature-item h4 {
+            color: #9945FF;
+            margin-bottom: 8px;
+        }
+
+        .feature-item p {
+            color: #ccc;
+            font-size: 14px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🧢 Leek Vision v3.12</h1>
+        <p class="subtitle">
+            8-bit 音效系统 + Minecraft 像素按键测试页面
+            <span class="status-badge testing">测试模式</span>
+        </p>
+
+        <!-- 功能特性 -->
+        <div class="test-section">
+            <h2>✨ 新功能特性</h2>
+            <div class="feature-list">
+                <div class="feature-item">
+                    <h4>🎵 8-bit 音效系统</h4>
+                    <p>Web Audio API 生成复古游戏音效，无需外部文件</p>
+                </div>
+                <div class="feature-item">
+                    <h4>🎮 Minecraft 按键</h4>
+                    <p>像素风格的币种选择面板，支持键盘快捷键</p>
+                </div>
+                <div class="feature-item">
+                    <h4>🔊 音量控制</h4>
+                    <p>内置音量滑块，实时调节音效大小</p>
+                </div>
+                <div class="feature-item">
+                    <h4>⌨️ 键盘支持</h4>
+                    <p>1-4 数字键快速切换，方向键导航</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- 购物模式测试 -->
+        <div class="test-section">
+            <h2>🛒 购物模式测试</h2>
+            <p style="color: #aaa; margin-bottom: 20px;">
+                点击任意价格标签，测试音效和 Minecraft 按键面板
+            </p>
+            <div class="test-grid">
+                <div class="price-card">
+                    <div class="price-label">MacBook Pro</div>
+                    <div class="price-value">¥12,999</div>
+                </div>
+                <div class="price-card">
+                    <div class="price-label">iPhone 16 Pro</div>
+                    <div class="price-value">¥7,999</div>
+                </div>
+                <div class="price-card">
+                    <div class="price-label">AirPods Pro</div>
+                    <div class="price-value">¥1,899</div>
+                </div>
+                <div class="price-card">
+                    <div class="price-label">Apple Watch</div>
+                    <div class="price-value">¥2,999</div>
+                </div>
+            </div>
+
+            <div class="info-box">
+                <h3>📋 测试步骤</h3>
+                <ul>
+                    <li>悬停在价格标签上 → 应听到轻微 "hover" 音效</li>
+                    <li>点击价格标签 → "click" 音效 + 按键面板弹出</li>
+                    <li>悬停在按键上 → "hover" 音效</li>
+                    <li>点击币种按键 → "pixelPress" + "success" 音效</li>
+                    <li>拖动音量滑块 → 实时调节音量</li>
+                    <li>按 ESC 或点击 ❌ → "modalClose" 音效</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- 交易模式测试 -->
+        <div class="test-section">
+            <h2>📈 交易模式测试</h2>
+            <p style="color: #aaa; margin-bottom: 20px;">
+                测试 PNL 晒单功能（手动输入测试数据）
+            </p>
+            <div class="test-grid">
+                <div class="pnl-display profit">
+                    <div class="price-label">盈利 PNL</div>
+                    <div class="pnl-value">+$2,500</div>
+                </div>
+                <div class="pnl-display">
+                    <div class="price-label">亏损 PNL</div>
+                    <div class="pnl-value">-$850</div>
+                </div>
+                <div class="pnl-display profit">
+                    <div class="price-label">大额盈利</div>
+                    <div class="pnl-value">+$15.8K</div>
+                </div>
+                <div class="pnl-display">
+                    <div class="price-label">小额亏损</div>
+                    <div class="pnl-value">-$120</div>
+                </div>
+            </div>
+
+            <div class="info-box">
+                <h3>📋 测试步骤</h3>
+                <ul>
+                    <li>在真实交易网站 (GMGN/DexScreener) 上使用</li>
+                    <li>点击 PNL 旁的 📷 按钮 → 晒单卡片弹出</li>
+                    <li>测试左右箭头切换单位 → "pixelPress" 音效</li>
+                    <li>点击 "SHARE ON X" → "screenshot" 音效</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- 宠物测试 -->
+        <div class="test-section">
+            <h2>👾 宠物交互测试</h2>
+            <p style="color: #aaa; margin-bottom: 20px;">
+                点击右下角的像素宠物
+            </p>
+            <div class="info-box">
+                <h3>📋 测试步骤</h3>
+                <ul>
+                    <li>点击宠物 → "petClick" 音效 (双音调)</li>
+                    <li>Casual 模式: 宠物随机移动 → "petRun" 音效</li>
+                    <li>Pro 模式: 打开 AI 对话框 → "modalOpen" 音效</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- AI 对话框测试 -->
+        <div class="test-section">
+            <h2>🧠 AI 对话框测试</h2>
+            <p style="color: #aaa; margin-bottom: 20px;">
+                将插件模式切换到 "Pro"，然后点击宠物
+            </p>
+            <div class="info-box">
+                <h3>📋 测试步骤</h3>
+                <ul>
+                    <li>切换到 Pro 模式</li>
+                    <li>点击宠物 → AI 对话框滑入</li>
+                    <li>输入代币名称并发送 → "click" 音效</li>
+                    <li>AI 响应时 → "aiMessage" 音效</li>
+                    <li>关闭对话框 → "modalClose" 音效</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- 键盘快捷键 -->
+        <div class="test-section">
+            <h2>⌨️ 键盘快捷键</h2>
+            <div class="keyboard-hint">
+                <h3>全局快捷键</h3>
+                <p>
+                    <span class="key">Ctrl</span> + <span class="key">M</span>
+                    切换静音
+                </p>
+                <br>
+                <h3>币种面板打开时</h3>
+                <p>
+                    <span class="key">1</span>
+                    <span class="key">2</span>
+                    <span class="key">3</span>
+                    <span class="key">4</span>
+                    快速切换 SOL/BTC/ETH/BNB
+                </p>
+                <p>
+                    <span class="key">←</span>
+                    <span class="key">→</span>
+                    <span class="key">↑</span>
+                    <span class="key">↓</span>
+                    方向键切换币种
+                </p>
+                <p>
+                    <span class="key">ESC</span>
+                    关闭面板
+                </p>
+            </div>
+        </div>
+
+        <!-- 故障排查 -->
+        <div class="test-section">
+            <h2>🔧 故障排查</h2>
+            <div class="info-box" style="border-color: #FFA500;">
+                <h3 style="color: #FFA500;">音效不播放？</h3>
+                <ul>
+                    <li>在控制台运行: <code>leekAudio.init(); leekAudio.click();</code></li>
+                    <li>检查是否静音: <code>leekAudio.toggle()</code></li>
+                    <li>调整音量: <code>leekAudio.setVolume(1.0)</code></li>
+                </ul>
+            </div>
+            <div class="info-box" style="border-color: #FFA500; margin-top: 15px;">
+                <h3 style="color: #FFA500;">按键面板不显示？</h3>
+                <ul>
+                    <li>检查控制台是否有错误信息</li>
+                    <li>确认所有文件已正确加载</li>
+                    <li>尝试重新加载插件</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- 音效列表 -->
+        <div class="test-section">
+            <h2>🎵 完整音效列表</h2>
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 10px; margin-top: 20px;">
+                <button onclick="leekAudio.hover()" style="padding: 10px; background: #333; border: 2px solid #00FF00; color: #fff; cursor: pointer;">hover</button>
+                <button onclick="leekAudio.click()" style="padding: 10px; background: #333; border: 2px solid #00FF00; color: #fff; cursor: pointer;">click</button>
+                <button onclick="leekAudio.pixelPress()" style="padding: 10px; background: #333; border: 2px solid #00FF00; color: #fff; cursor: pointer;">pixelPress</button>
+                <button onclick="leekAudio.modalOpen()" style="padding: 10px; background: #333; border: 2px solid #00FF00; color: #fff; cursor: pointer;">modalOpen</button>
+                <button onclick="leekAudio.modalClose()" style="padding: 10px; background: #333; border: 2px solid #00FF00; color: #fff; cursor: pointer;">modalClose</button>
+                <button onclick="leekAudio.petClick()" style="padding: 10px; background: #333; border: 2px solid #00FF00; color: #fff; cursor: pointer;">petClick</button>
+                <button onclick="leekAudio.petRun()" style="padding: 10px; background: #333; border: 2px solid #00FF00; color: #fff; cursor: pointer;">petRun</button>
+                <button onclick="leekAudio.success()" style="padding: 10px; background: #333; border: 2px solid #00FF00; color: #fff; cursor: pointer;">success</button>
+                <button onclick="leekAudio.aiMessage()" style="padding: 10px; background: #333; border: 2px solid #00FF00; color: #fff; cursor: pointer;">aiMessage</button>
+                <button onclick="leekAudio.screenshot()" style="padding: 10px; background: #333; border: 2px solid #00FF00; color: #fff; cursor: pointer;">screenshot</button>
+                <button onclick="leekAudio.error()" style="padding: 10px; background: #333; border: 2px solid #00FF00; color: #fff; cursor: pointer;">error</button>
+            </div>
+            <p style="color: #aaa; margin-top: 15px; font-size: 14px;">
+                点击按钮试听所有音效 (需要先点击页面任意位置以初始化音频引擎)
+            </p>
+        </div>
+
+        <footer>
+            <p>Leek Vision v3.12 | Generated with 🧢 by Johnson & Leek Vision Team</p>
+            <p style="margin-top: 10px; font-size: 14px;">Press Start to Continue 🎮</p>
+        </footer>
+    </div>
+
+    <script>
+        // 初始化音频引擎（如果插件已加载）
+        document.addEventListener('click', () => {
+            if (window.leekAudio) {
+                window.leekAudio.init();
+                console.log('🎵 Audio Engine Initialized');
+            }
+        }, { once: true });
+
+        // 检查插件状态
+        window.addEventListener('load', () => {
+            setTimeout(() => {
+                const status = window.leekAudio ? '<span class="status-badge success">✓ 音效引擎已加载</span>' : '<span class="status-badge testing">⚠️ 音效引擎未检测到</span>';
+                console.log('Leek Vision Status:', status);
+            }, 1000);
+        });
+    </script>
+</body>
+</html>

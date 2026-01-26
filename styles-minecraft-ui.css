@@ -1,0 +1,373 @@
+/* =====================================================
+   LEEK VISION - MINECRAFT 像素按键系统
+   代替原有下拉菜单，使用游戏风格的按键交互
+   ===================================================== */
+
+/* -----------------------------------------------------
+   1. Minecraft 风格币种按键容器
+----------------------------------------------------- */
+.degen-pixel-selector {
+    position: fixed;
+    background: #c6c6c6; /* Minecraft 石材颜色 */
+    border: 4px solid #000;
+    box-shadow:
+        inset -4px -4px 0px #555,
+        inset 4px 4px 0px #fff,
+        8px 8px 0px rgba(0,0,0,0.5);
+    z-index: 99999;
+    padding: 8px;
+    font-family: 'Pixelify Sans', 'Courier New', monospace;
+    display: none;
+    min-width: 200px;
+    transform: scale(0.8);
+    opacity: 0;
+    pointer-events: none;
+}
+
+.degen-pixel-selector.visible {
+    display: block;
+    animation: mcPopup 0.2s cubic-bezier(0.11, 0, 0.5, 0) forwards;
+    pointer-events: all;
+}
+
+@keyframes mcPopup {
+    0% {
+        transform: scale(0.8);
+        opacity: 0;
+    }
+    50% {
+        transform: scale(1.05);
+    }
+    100% {
+        transform: scale(1);
+        opacity: 1;
+    }
+}
+
+/* 像素网格背景 */
+.degen-pixel-selector::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0; bottom: 0;
+    background-image:
+        linear-gradient(rgba(0,0,0,0.05) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(0,0,0,0.05) 1px, transparent 1px);
+    background-size: 4px 4px;
+    pointer-events: none;
+    z-index: 0;
+}
+
+/* 标题栏 */
+.pixel-selector-header {
+    background: #000;
+    color: #fff;
+    padding: 8px 12px;
+    font-size: 14px;
+    font-weight: bold;
+    text-transform: uppercase;
+    text-align: center;
+    border: 3px solid #fff;
+    box-shadow: inset 0 0 10px rgba(255,255,255,0.1);
+    margin-bottom: 12px;
+    position: relative;
+    z-index: 1;
+    letter-spacing: 2px;
+}
+
+/* 按键网格 */
+.pixel-coin-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 8px;
+    position: relative;
+    z-index: 1;
+}
+
+/* -----------------------------------------------------
+   2. Minecraft 风格按键
+----------------------------------------------------- */
+.pixel-coin-btn {
+    background: #8b8b8b;
+    border: 3px solid #000;
+    box-shadow:
+        inset -3px -3px 0px #3f3f3f,
+        inset 3px 3px 0px #fff;
+    padding: 12px 8px;
+    cursor: pointer;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 4px;
+    transition: all 0.05s;
+    position: relative;
+    overflow: hidden;
+}
+
+.pixel-coin-btn::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0; bottom: 0;
+    background: linear-gradient(135deg, rgba(255,255,255,0.1) 0%, transparent 50%);
+    pointer-events: none;
+}
+
+/* 按键图标 */
+.pixel-coin-icon {
+    font-size: 24px;
+    text-shadow: 2px 2px 0px #000;
+    position: relative;
+    z-index: 1;
+}
+
+/* 按键文字 */
+.pixel-coin-name {
+    font-size: 12px;
+    font-weight: bold;
+    color: #fff;
+    text-shadow: 1px 1px 0px #000;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    position: relative;
+    z-index: 1;
+}
+
+/* Hover 状态 */
+.pixel-coin-btn:hover {
+    background: #9f9f9f;
+    transform: scale(1.05);
+    box-shadow:
+        inset -3px -3px 0px #3f3f3f,
+        inset 3px 3px 0px #fff,
+        0 0 15px rgba(0, 255, 0, 0.5);
+}
+
+/* Active/Pressed 状态 */
+.pixel-coin-btn:active,
+.pixel-coin-btn.pressed {
+    background: #6f6f6f;
+    box-shadow:
+        inset 3px 3px 0px #3f3f3f,
+        inset -3px -3px 0px #9f9f9f;
+    transform: scale(0.95) translate(2px, 2px);
+}
+
+/* 选中状态 */
+.pixel-coin-btn.selected {
+    background: #5a5a5a;
+    border-color: #00FF00;
+    box-shadow:
+        inset -3px -3px 0px #2a2a2a,
+        inset 3px 3px 0px #7a7a7a,
+        0 0 20px rgba(0, 255, 0, 0.6);
+}
+
+.pixel-coin-btn.selected .pixel-coin-name {
+    color: #00FF00;
+    text-shadow: 0 0 10px rgba(0, 255, 0, 0.8);
+}
+
+/* -----------------------------------------------------
+   3. 关闭按钮
+----------------------------------------------------- */
+.pixel-close-btn {
+    position: absolute;
+    top: -16px;
+    right: -16px;
+    width: 32px;
+    height: 32px;
+    background: #ff0000;
+    border: 3px solid #000;
+    box-shadow:
+        inset -2px -2px 0px #990000,
+        inset 2px 2px 0px #ff6666;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 18px;
+    font-weight: bold;
+    color: #fff;
+    text-shadow: 1px 1px 0px #000;
+    z-index: 10;
+    transition: all 0.05s;
+}
+
+.pixel-close-btn:hover {
+    background: #ff3333;
+    transform: scale(1.1);
+}
+
+.pixel-close-btn:active {
+    background: #cc0000;
+    box-shadow:
+        inset 2px 2px 0px #990000,
+        inset -2px -2px 0px #ff6666;
+    transform: scale(0.95) translate(2px, 2px);
+}
+
+/* -----------------------------------------------------
+   4. 音量控制滑块 (Minecraft 风格)
+----------------------------------------------------- */
+.pixel-volume-control {
+    margin-top: 12px;
+    padding-top: 12px;
+    border-top: 3px solid #000;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    position: relative;
+    z-index: 1;
+}
+
+.pixel-volume-icon {
+    font-size: 16px;
+    text-shadow: 1px 1px 0px #000;
+}
+
+.pixel-volume-slider {
+    flex-grow: 1;
+    height: 12px;
+    background: #000;
+    border: 2px solid #fff;
+    box-shadow: inset 0 0 5px rgba(0,0,0,0.5);
+    position: relative;
+    cursor: pointer;
+}
+
+.pixel-volume-fill {
+    height: 100%;
+    background: repeating-linear-gradient(
+        90deg,
+        #00FF00 0px,
+        #00FF00 4px,
+        #00cc00 4px,
+        #00cc00 8px
+    );
+    width: 30%;
+    transition: width 0.1s;
+}
+
+.pixel-volume-knob {
+    position: absolute;
+    top: -4px;
+    width: 20px;
+    height: 20px;
+    background: #c6c6c6;
+    border: 2px solid #000;
+    box-shadow:
+        inset -2px -2px 0px #3f3f3f,
+        inset 2px 2px 0px #fff;
+    left: 30%;
+    transform: translateX(-50%);
+    cursor: grab;
+    transition: left 0.1s;
+}
+
+.pixel-volume-knob:active {
+    cursor: grabbing;
+    background: #9f9f9f;
+}
+
+/* -----------------------------------------------------
+   5. 装饰性像素边框
+----------------------------------------------------- */
+.pixel-corner-decoration {
+    position: absolute;
+    width: 16px;
+    height: 16px;
+    border: 3px solid #00FF00;
+    pointer-events: none;
+    z-index: 5;
+}
+
+.pixel-corner-decoration.tl {
+    top: -8px;
+    left: -8px;
+    border-right: none;
+    border-bottom: none;
+}
+
+.pixel-corner-decoration.tr {
+    top: -8px;
+    right: -8px;
+    border-left: none;
+    border-bottom: none;
+}
+
+.pixel-corner-decoration.bl {
+    bottom: -8px;
+    left: -8px;
+    border-right: none;
+    border-top: none;
+}
+
+.pixel-corner-decoration.br {
+    bottom: -8px;
+    right: -8px;
+    border-left: none;
+    border-top: none;
+}
+
+/* -----------------------------------------------------
+   6. 响应式调整
+----------------------------------------------------- */
+@media (max-width: 480px) {
+    .degen-pixel-selector {
+        min-width: 180px;
+    }
+
+    .pixel-coin-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .pixel-coin-btn {
+        flex-direction: row;
+        padding: 10px 16px;
+        gap: 12px;
+    }
+}
+
+/* -----------------------------------------------------
+   7. 动画优化
+----------------------------------------------------- */
+.pixel-coin-btn,
+.pixel-close-btn,
+.pixel-volume-knob {
+    /* 使用 will-change 提升动画性能 */
+    will-change: transform, background;
+}
+
+.pixel-coin-btn:hover,
+.pixel-close-btn:hover {
+    animation: pixelPulse 0.3s ease-in-out;
+}
+
+@keyframes pixelPulse {
+    0%, 100% {
+        filter: brightness(1);
+    }
+    50% {
+        filter: brightness(1.2);
+    }
+}
+
+/* -----------------------------------------------------
+   8. 可访问性增强
+----------------------------------------------------- */
+.pixel-coin-btn:focus-visible,
+.pixel-close-btn:focus-visible {
+    outline: 3px solid #00FF00;
+    outline-offset: 2px;
+}
+
+/* 高对比度模式支持 */
+@media (prefers-contrast: high) {
+    .pixel-coin-btn {
+        border-width: 4px;
+    }
+
+    .pixel-coin-name {
+        font-weight: 900;
+    }
+}

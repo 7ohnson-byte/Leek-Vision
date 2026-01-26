@@ -1,0 +1,217 @@
+/* =====================================================
+   LEEK VISION v3.9 - HYBRID STYLE
+   Chat: Modern Purple | Share: Retro Pixel
+   ===================================================== */
+
+@import url('https://fonts.googleapis.com/css2?family=Pixelify+Sans:wght@400;700&display=swap');
+
+/* -----------------------------------------------------
+   1. 基础样式
+----------------------------------------------------- */
+body.leek-layout-ghost .tb-rmb-num,
+body.leek-layout-ghost .rmb-num,
+body.leek-layout-ghost .price-value,
+body.leek-layout-ghost [class*="price"] {
+    display: inline-block !important;
+    position: relative !important;
+    overflow: visible !important;
+    white-space: normal !important;
+}
+
+/* -----------------------------------------------------
+   2. 价格标签 (Black/Green Pixel)
+----------------------------------------------------- */
+.degen-vision-badge {
+    display: inline-flex; align-items: center;
+    background: #000; color: #00FF00;
+    font-family: 'Pixelify Sans', 'Courier New', monospace;
+    font-weight: 700; font-size: 12px;
+    padding: 3px 6px; border: 2px solid #00FF00;
+    border-radius: 4px; cursor: pointer;
+    box-shadow: 2px 2px 0px rgba(0,0,0,0.5);
+    margin-left: 6px; z-index: 9999;
+    transition: transform 0.1s;
+}
+.degen-vision-badge:hover { transform: scale(1.1); background: #0a0a0a; }
+
+/* -----------------------------------------------------
+   3. 币种菜单
+----------------------------------------------------- */
+.degen-dropdown {
+    position: fixed; background: #000; border: 2px solid #00FF00;
+    box-shadow: 4px 4px 0px #004400; z-index: 99999;
+    display: none; font-family: 'Pixelify Sans', monospace; min-width: 120px;
+}
+.degen-dropdown.visible { display: block; animation: fadeIn 0.2s; }
+.degen-dropdown-header { background: #00FF00; color: #000; font-weight: bold; padding: 6px 10px; font-size: 12px; }
+.degen-dropdown-item { padding: 8px 10px; color: #00FF00; cursor: pointer; display: flex; align-items: center; font-size: 13px; }
+.degen-dropdown-item:hover { background: rgba(0, 255, 0, 0.2); }
+.degen-dropdown-item.active { background: rgba(0, 255, 0, 0.4); font-weight: bold; }
+
+/* -----------------------------------------------------
+   4. 电子宠物 (🟢 尺寸恢复 100px)
+----------------------------------------------------- */
+.degen-pet {
+    position: fixed; bottom: 20px; right: 20px; 
+    width: 100px; height: 100px; /* 👈 Bigger Size */
+    z-index: 2147483646; cursor: pointer; image-rendering: pixelated;
+    filter: drop-shadow(4px 4px 0px rgba(0,0,0,0.5));
+    transition: transform 0.1s; transform: translateY(100px); opacity: 0;
+}
+.pet-transition { transition: all 0.5s; transform: translateY(0); opacity: 1; }
+.degen-pet:hover { transform: scale(1.1); }
+.degen-pet-avatar { width: 100%; height: 100%; background-size: contain; background-repeat: no-repeat; }
+.degen-pet-avatar.is-running { width: 120px; height: 120px; position: relative; top: -20px; left: -10px; }
+
+/* -----------------------------------------------------
+   5. Chat UI (🟢 强制恢复 Purple/White 风格)
+----------------------------------------------------- */
+.leek-agent-dialog {
+    position: fixed; bottom: 130px; right: 20px; width: 340px; height: 480px;
+    background: #111 !important; /* 深灰背景 */
+    border: 3px solid #9945FF !important; /* 紫色边框 */
+    border-radius: 16px !important; /* 圆角 */
+    box-shadow: 0 10px 30px rgba(0,0,0,0.5) !important; z-index: 2147483647;
+    display: none; flex-direction: column; 
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif !important; 
+    overflow: hidden;
+}
+.leek-agent-dialog.visible { display: flex; animation: slideUp 0.3s; }
+.leek-agent-dialog.expanded { width: 500px; height: 700px; }
+
+@keyframes slideUp { from { transform: translateY(20px); opacity: 0; } to { transform: translateY(0); opacity: 1; } }
+
+.agent-header {
+    background: #9945FF !important; /* 紫色 Header */
+    color: #fff !important; padding: 14px 18px; font-weight: 700;
+    display: flex; justify-content: space-between; align-items: center;
+    font-size: 16px; letter-spacing: 0.5px;
+}
+.agent-controls span { cursor: pointer; margin-left: 14px; opacity: 0.8; font-size: 18px; }
+.agent-controls span:hover { opacity: 1; }
+
+.agent-body {
+    flex-grow: 1; padding: 16px; overflow-y: auto; 
+    background: #1a1a1a !important; display: flex; flex-direction: column; gap: 14px;
+}
+
+/* 🟢 AI 消息：白字 + 左侧紫色条 */
+.chat-msg { max-width: 88%; padding: 12px 16px; font-size: 14px; line-height: 1.5; border-radius: 12px; }
+.msg-ai {
+    align-self: flex-start;
+    background: #2a2a2a !important; 
+    border-left: 4px solid #9945FF !important;
+    color: #ffffff !important; /* 白色文字 */
+    box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+    border: none; /* 去掉之前的像素框 */
+}
+/* 🟢 User 消息：紫色背景 + 白字 */
+.msg-user {
+    align-self: flex-end;
+    background: #9945FF !important;
+    color: #fff !important;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+    border: none;
+}
+
+.agent-input-area { padding: 14px; background: #111 !important; display: flex; gap: 10px; border-top: 1px solid #333 !important; }
+.agent-input {
+    flex-grow: 1; background: #222 !important; border: 1px solid #444 !important; color: #fff !important; 
+    padding: 10px 14px; border-radius: 8px !important; outline: none; transition: border 0.2s;
+    font-family: inherit !important;
+}
+.agent-input:focus { border-color: #9945FF !important; }
+.agent-send-btn {
+    background: #9945FF !important; color: #fff !important; border: none; padding: 0 18px; 
+    border-radius: 8px !important; font-weight: bold; cursor: pointer; transition: background 0.2s;
+    box-shadow: none !important;
+}
+.agent-send-btn:hover { background: #b06bff !important; }
+
+/* 研报样式修正 (Modern) */
+.report-header { color: #9945FF !important; font-weight: 800; margin-top: 8px; font-size: 15px; text-transform: uppercase; }
+.report-highlight { background: rgba(153, 69, 255, 0.2) !important; color: #fff !important; padding: 0 4px; border-radius: 4px; font-weight: 600; border: none !important; }
+.report-list-item { margin-bottom: 4px; display: flex; }
+.report-bullet { color: #9945FF !important; margin-right: 6px; }
+
+/* -----------------------------------------------------
+   6. Web3 晒单卡片 (Pixel Style)
+----------------------------------------------------- */
+.leek-share-btn {
+    display: inline-block; margin-left: 6px; cursor: pointer; font-size: 14px;
+    opacity: 0.7; transition: transform 0.2s; vertical-align: middle;
+}
+.leek-share-btn:hover { transform: scale(1.3) rotate(10deg); opacity: 1; filter: drop-shadow(0 0 4px #00FF00); }
+
+.leek-share-modal {
+    position: fixed; top: 0; left: 0; width: 100vw; height: 100vh;
+    background: rgba(0,0,0,0.85); backdrop-filter: blur(5px);
+    display: flex; justify-content: center; align-items: center;
+    z-index: 2147483647; font-family: 'Pixelify Sans', monospace;
+    animation: fadeIn 0.2s;
+}
+@keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+
+.leek-controller-card {
+    background-color: #2b2b2b; /* Dark Grey Plastic */
+    width: 340px; padding: 15px; border: 4px solid #000;
+    box-shadow: 15px 15px 0px rgba(0,0,0,0.5); position: relative;
+    overflow: hidden; transform: scale(0.9);
+    animation: popIn 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
+}
+@keyframes popIn { to { transform: scale(1); } }
+
+/* 动态水印 */
+.watermark-layer {
+    position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+    background-repeat: repeat; background-size: 80px 80px;
+    opacity: 0.05; pointer-events: none; z-index: 0;
+    animation: watermarkScroll 20s linear infinite;
+}
+@keyframes watermarkScroll { from { background-position: 0 0; } to { background-position: 100% 100%; } }
+
+.controller-header {
+    background: #000; border: 4px solid #000; padding: 10px;
+    display: flex; justify-content: space-between; align-items: center;
+    margin-bottom: 15px; position: relative; z-index: 1;
+}
+.header-title { color: #00FF00; font-size: 20px; font-weight: 700; text-transform: uppercase; }
+.close-btn { color: #666; cursor: pointer; font-size: 20px; font-weight: bold; }
+.close-btn:hover { color: #fff; }
+
+.controller-body { position: relative; z-index: 1; }
+.pnl-section { margin-bottom: 15px; }
+.label-text { color: #00FF00; font-size: 12px; margin-bottom: 5px; text-transform: uppercase; font-weight: bold; }
+.token-info-box { font-size: 11px; margin-bottom: 5px; color: #aaa; border-left: 2px solid; padding-left: 6px; }
+
+.pnl-display {
+    background: #000; border: 2px solid; padding: 15px;
+    font-size: 28px; font-weight: bold; color: #fff;
+    display: flex; justify-content: space-between; align-items: center;
+    box-shadow: inset 0 0 10px rgba(0,0,0,0.5);
+}
+.mood-tag { font-size: 12px; color: #000; padding: 2px 6px; border-radius: 2px; }
+.divider-pixel { text-align: center; color: #666; font-size: 12px; margin: 10px 0; font-weight: bold; }
+
+.real-world-section {
+    background: rgba(0, 255, 136, 0.1); border: 2px solid #00ff88;
+    padding: 15px 10px; display: flex; align-items: center; justify-content: space-between;
+    margin-bottom: 20px;
+}
+.nav-arrow { cursor: pointer; color: #00ff88; font-size: 24px; user-select: none; }
+.nav-arrow:hover { transform: scale(1.2); color: #fff; }
+.item-display { flex-grow: 1; text-align: center; color: #fff; }
+.rw-icon { font-size: 42px; display: block; margin-bottom: 5px; }
+.rw-qty { font-size: 24px; font-weight: bold; color: #00ff88; }
+.rw-unit { font-size: 12px; color: #aaa; }
+.rw-name { font-size: 14px; margin-top: 5px; font-weight: bold; }
+
+.action-btn {
+    width: 100%; padding: 15px; background: #1DA1F2; color: #fff;
+    border: 4px solid #000; font-family: inherit; font-size: 16px; font-weight: bold;
+    cursor: pointer; text-transform: uppercase; box-shadow: 4px 4px 0px rgba(0,0,0,0.5);
+    transition: all 0.1s;
+}
+.action-btn:hover { transform: translate(-2px, -2px); box-shadow: 6px 6px 0px rgba(0,0,0,0.5); }
+.action-btn:active { transform: translate(2px, 2px); box-shadow: 2px 2px 0px rgba(0,0,0,0.5); }
+.card-footer { margin-top: 15px; text-align: center; font-size: 10px; color: #666; text-transform: uppercase; }

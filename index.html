@@ -1,0 +1,337 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Leek Vision | The Web3 Pixel Toy</title>
+    <link href="https://fonts.googleapis.com/css2?family=Pixelify+Sans:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg: #050505;
+            --text: #ffffff;
+            --accent: #00FF00; /* Leek Green */
+            --secondary: #9945FF; /* Solana Purple */
+            --border-color: #333;
+        }
+
+        body {
+            background-color: var(--bg);
+            color: var(--text);
+            font-family: 'Pixelify Sans', cursive; 
+            margin: 0;
+            padding: 0;
+            overflow-x: hidden;
+            position: relative;
+        }
+
+        /* 🟢 灵动背景 (保持不变) */
+        .bg-container {
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            z-index: -1;
+            pointer-events: none;
+            overflow: hidden;
+            opacity: 0.4;
+        }
+        .floating-pet {
+            position: absolute;
+            background-size: contain;
+            background-repeat: no-repeat;
+            image-rendering: pixelated;
+        }
+        .pet-1 {
+            width: 80px; height: 80px;
+            background-image: url('images/pet-run.gif');
+            top: 15%; left: -100px;
+            animation: floatRightSlow 25s linear infinite;
+        }
+        .pet-2 {
+            width: 100px; height: 100px;
+            background-image: url('images/pet-idle.gif');
+            bottom: 20%; right: -100px;
+            animation: floatLeftSlow 30s linear infinite;
+            animation-delay: 5s;
+        }
+        .pet-3 {
+            width: 64px; height: 64px;
+            background-image: url('images/pet-run.gif');
+            top: 60%; left: -100px;
+            transform: scaleX(-1);
+            animation: floatRightFast 18s linear infinite;
+            animation-delay: 10s;
+        }
+
+        @keyframes floatRightSlow { from { transform: translateX(0); } to { transform: translateX(120vw); } }
+        @keyframes floatLeftSlow { from { transform: translateX(0); } to { transform: translateX(-120vw); } }
+        @keyframes floatRightFast { from { transform: translateX(0) scaleX(-1); } to { transform: translateX(120vw) scaleX(-1); } }
+
+        /* 🟢 核心 UI */
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 40px;
+            max-width: 1200px;
+            margin: 0 auto;
+            border-bottom: 4px solid var(--border-color);
+            background: rgba(5, 5, 5, 0.8);
+            backdrop-filter: blur(5px);
+        }
+        .logo {
+            font-size: 28px;
+            font-weight: 700;
+            color: var(--accent);
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            text-transform: uppercase;
+            text-shadow: 2px 2px 0px #004400;
+        }
+        .logo img { 
+            width: 36px; height: 36px; 
+            border: 3px solid var(--accent);
+            box-shadow: 3px 3px 0px #004400;
+        }
+        .social-links a {
+            color: var(--accent);
+            text-decoration: none;
+            margin-left: 24px;
+            font-weight: 700;
+            text-transform: uppercase;
+            border: 2px solid transparent;
+            padding: 4px 8px;
+            transition: 0.2s;
+        }
+        .social-links a:hover { 
+            border-color: var(--accent);
+            box-shadow: 2px 2px 0px var(--accent);
+            background: #000;
+        }
+
+        /* Hero 区域 (删除了 Demo 框) */
+        .hero {
+            text-align: center;
+            padding: 150px 20px 100px; /* 增加了下方留白 */
+            max-width: 900px;
+            margin: 0 auto;
+        }
+        h1 {
+            font-size: 72px;
+            line-height: 1;
+            margin-bottom: 24px;
+            text-transform: uppercase;
+            text-shadow: 4px 4px 0px #333;
+        }
+        h1 span { 
+            color: var(--accent); 
+            text-shadow: 4px 4px 0px #004400;
+        }
+        p.subtitle {
+            font-size: 22px;
+            color: #ccc;
+            margin-bottom: 60px;
+            line-height: 1.5;
+            background: rgba(0,0,0,0.6);
+            display: inline-block;
+            padding: 10px;
+            border: 2px dashed #555;
+        }
+
+        /* 按钮组 */
+        .btn-group {
+            display: flex;
+            gap: 20px;
+            justify-content: center;
+        }
+        .btn {
+            padding: 16px 36px;
+            font-weight: 700;
+            text-decoration: none;
+            font-size: 20px;
+            text-transform: uppercase;
+            transition: all 0.1s;
+            position: relative;
+            top: 0; left: 0;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        /* 🟢 DOWNLOAD 按钮 */
+        .btn-primary {
+            background-color: var(--accent);
+            color: #000;
+            border: 4px solid #004400;
+            box-shadow: 6px 6px 0px #004400;
+        }
+        .btn-primary:hover { color: #000; filter: brightness(1.1); }
+        
+        /* 🟢 TG 按钮 */
+        .btn-secondary {
+            background-color: #0088cc; /* Telegram Blue */
+            color: #fff;
+            border: 4px solid #005580;
+            box-shadow: 6px 6px 0px #005580;
+        }
+        .btn-secondary:hover { color: #fff; filter: brightness(1.1); }
+
+        .btn:active {
+            top: 4px; left: 4px;
+            box-shadow: 2px 2px 0px #000;
+        }
+
+        /* Features */
+        .features {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 30px;
+            max-width: 1200px;
+            margin: 40px auto 80px;
+            padding: 0 20px;
+        }
+        .feature-card {
+            background: #111;
+            padding: 30px;
+            border: 4px solid #333;
+            box-shadow: 8px 8px 0px #222;
+            transition: transform 0.2s;
+        }
+        .feature-card:hover {
+            transform: translate(-4px, -4px);
+            box-shadow: 12px 12px 0px var(--accent);
+            border-color: var(--accent);
+        }
+        .feature-card h3 {
+            font-size: 24px;
+            margin-top: 0;
+            color: var(--accent);
+            text-transform: uppercase;
+        }
+        .feature-card p { color: #aaa; font-size: 18px; line-height: 1.4; }
+        .icon { font-size: 48px; margin-bottom: 20px; display: block; text-shadow: 3px 3px 0 #000; }
+
+        /* 教程区 */
+        .install-guide {
+            max-width: 1000px;
+            margin: 0 auto 80px;
+            padding: 0 20px;
+            text-align: center;
+        }
+        .install-guide h2 {
+            font-size: 40px; color: #fff; margin-bottom: 50px; text-transform: uppercase;
+            text-shadow: 4px 4px 0 #333; border-bottom: 4px dashed #333; padding-bottom: 20px;
+            display: inline-block;
+        }
+        .steps-container {
+            display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 30px;
+        }
+        .step-card {
+            background: #1a1a1a; border: 4px solid #444; padding: 30px 20px;
+            position: relative; text-align: left; box-shadow: 8px 8px 0px #000;
+            transition: transform 0.2s;
+        }
+        .step-card:hover { transform: translateY(-5px); border-color: var(--accent); box-shadow: 12px 12px 0px var(--accent); }
+        .step-num {
+            position: absolute; top: -25px; left: 20px; background: #444; color: var(--accent);
+            font-size: 32px; font-weight: 700; padding: 5px 15px; border: 4px solid #000; box-shadow: 4px 4px 0px #000;
+        }
+        .step-card h4 { color: var(--accent); font-size: 20px; margin-top: 15px; margin-bottom: 15px; text-transform: uppercase; }
+        .step-card p { color: #ccc; font-size: 16px; line-height: 1.6; }
+        code { background: #000; padding: 4px 8px; font-family: monospace; color: #fff; border: 1px solid #555; }
+
+        footer {
+            text-align: center; padding: 60px 0; color: var(--accent); font-size: 16px;
+            border-top: 4px solid var(--border-color); background: rgba(5,5,5,0.9); text-transform: uppercase;
+        }
+
+        @media (max-width: 768px) {
+            h1 { font-size: 48px; }
+            .btn-group { flex-direction: column; }
+            .logo { font-size: 22px; }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="bg-container">
+        <div class="floating-pet pet-1"></div>
+        <div class="floating-pet pet-2"></div>
+        <div class="floating-pet pet-3"></div>
+    </div>
+
+    <div class="main-content">
+        <nav>
+            <div class="logo">
+                <img src="images/icon.png" alt="Logo">
+                Leek Vision
+            </div>
+            <div class="social-links">
+                <a href="https://x.com/0x7ohnson" target="_blank">Twitter X</a>
+                <a href="https://github.com/7ohnson-byte/Leek-Vision" target="_blank">GitHub</a>
+            </div>
+        </nav>
+
+        <section class="hero">
+            <h1>
+                Don't just hodl.<br>
+                Play the <span>Market</span>.
+            </h1>
+            <p class="subtitle">
+                The Pixel-Perfect Web3 Browser Toy. <br>Shop in Crypto. Analyze with AI. Feed your pet.
+            </p>
+            <div class="btn-group">
+                <a href="https://github.com/7ohnson-byte/Leek-Vision/releases/download/v2.7/Leek-Vision-Beta2.7.zip" class="btn btn-primary">
+                    💾 DOWNLOAD LEEK VISION
+                </a>
+                <a href="https://t.me/Leek_Vision" target="_blank" class="btn btn-secondary">
+                    ✈️ JOIN TG CHANNEL
+                </a>
+            </div>
+        </section>
+
+        <section class="features">
+            <div class="feature-card">
+                <span class="icon">🧢</span>
+                <h3>Fiat -> Crypto</h3>
+                <p>Real-time price conversion on shopping sites. See the world in SOL & BTC.</p>
+            </div>
+            <div class="feature-card">
+                <span class="icon">🧠</span>
+                <h3>Degen AI Brain</h3>
+                <p>Instant "Risk & Signal" reports for any shitcoin, powered by on-chain data.</p>
+            </div>
+            <div class="feature-card">
+                <span class="icon">👾</span>
+                <h3>Desktop Pet</h3>
+                <p>Your interactive Web3 companion. Click it to summon the analysis terminal.</p>
+            </div>
+        </section>
+
+        <section class="install-guide">
+            <h2>⚡ HOW TO INSTALL (BETA)</h2>
+            <div class="steps-container">
+                <div class="step-card">
+                    <div class="step-num">01</div>
+                    <h4>DOWNLOAD & UNZIP</h4>
+                    <p>Click the <strong>Download</strong> button above to get the zip file. Unzip it to a folder.</p>
+                </div>
+                <div class="step-card">
+                    <div class="step-num">02</div>
+                    <h4>OPEN EXTENSIONS</h4>
+                    <p>Type <code>chrome://extensions</code> in URL bar, and toggle <strong>Developer Mode</strong> ↗️.</p>
+                </div>
+                <div class="step-card">
+                    <div class="step-num">03</div>
+                    <h4>LOAD UNPACKED</h4>
+                    <p>Click <strong>"Load Unpacked"</strong> and select the unzipped folder. Done! 🧢</p>
+                </div>
+            </div>
+        </section>
+
+        <footer>
+            &copy; 2026 Leek Vision Labs. Press Start to Continue.
+        </footer>
+    </div>
+
+</body>
+</html>

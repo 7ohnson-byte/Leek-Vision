@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Leek Vision 🧢</title>
+  <link rel="stylesheet" href="popup.css">
+</head>
+<body>
+  <div class="container">
+    <div class="header">
+      <h1>🧢 Leek Vision</h1>
+      <p class="subtitle">韭菜眼镜 v2.1</p>
+    </div>
+
+    <div class="scanner-settings">
+      
+      <div class="setting-group">
+        <label class="setting-label">OPERATION MODE</label>
+        <div class="mode-selector">
+          <label class="radio-container">
+            <input type="radio" name="op-mode" value="casual" checked>
+            <span class="radio-btn">🎮 CASUAL</span>
+          </label>
+          <label class="radio-container">
+            <input type="radio" name="op-mode" value="pro">
+            <span class="radio-btn">🧠 PRO AGENT</span>
+          </label>
+        </div>
+      </div>
+
+      <div class="setting-group">
+        <label class="setting-label">Extension Settings</label>
+
+        <div class="toggle-row">
+          <span class="toggle-text">Enable Extension</span>
+          <label class="toggle-switch">
+            <input type="checkbox" id="enable-extension" checked>
+            <span class="toggle-slider"></span>
+          </label>
+        </div>
+
+        <div class="toggle-row">
+          <span class="toggle-text">Show Cents</span>
+          <label class="toggle-switch">
+            <input type="checkbox" id="show-cents">
+            <span class="toggle-slider"></span>
+          </label>
+        </div>
+      </div>
+
+      <div class="setting-group">
+        <label for="coin-select">Base Coin</label>
+        <select id="coin-select">
+          <option value="SOL">Solana ($SOL)</option>
+          <option value="BTC">Bitcoin ($BTC)</option>
+          <option value="ETH">Ethereum ($ETH)</option>
+          <option value="BNB">BNB ($BNB)</option>
+        </select>
+      </div>
+
+      <div class="info">
+        <p>🎮 <b>Casual:</b> Click pet to play.</p>
+        <p>🧠 <b>Pro:</b> Click pet to ask Surf.ai about projects.</p>
+        <p class="rate-info">
+          Prices auto-update every 10m via API
+        </p>
+      </div>
+    </div>
+
+    <div class="footer">
+      <p class="version">Powered by Surf.ai</p>
+    </div>
+  </div>
+
+  <script src="popup.js"></script>
+</body>
+</html>
