@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Leek Vision | The Web3 Pixel Toy</title>
     <link href="https://fonts.googleapis.com/css2?family=Pixelify+Sans:wght@400;700&display=swap" rel="stylesheet">
+    <script src="audio-engine.js"></script>
     <style>
         :root {
             --bg: #050505;
@@ -86,6 +87,8 @@
             gap: 12px;
             text-transform: uppercase;
             text-shadow: 2px 2px 0px #004400;
+            cursor: pointer;
+            transition: transform 0.1s;
         }
         .logo img { 
             width: 36px; height: 36px; 
@@ -101,11 +104,31 @@
             border: 2px solid transparent;
             padding: 4px 8px;
             transition: 0.2s;
+            cursor: pointer;
         }
-        .social-links a:hover { 
+        .social-links a:hover {
             border-color: var(--accent);
             box-shadow: 2px 2px 0px var(--accent);
             background: #000;
+            transform: scale(1.05);
+        }
+
+        /* 音效提示 */
+        .sound-hint {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background: rgba(0, 255, 0, 0.1);
+            border: 2px dashed var(--accent);
+            padding: 12px 16px;
+            font-size: 12px;
+            color: var(--accent);
+            z-index: 1000;
+            animation: pulse 2s ease-in-out infinite;
+        }
+        @keyframes pulse {
+            0%, 100% { opacity: 0.6; }
+            50% { opacity: 1; }
         }
 
         /* Hero 区域 (删除了 Demo 框) */
@@ -155,6 +178,7 @@
             display: flex;
             align-items: center;
             gap: 10px;
+            cursor: pointer;
         }
         
         /* 🟢 DOWNLOAD 按钮 */
@@ -195,6 +219,7 @@
             border: 4px solid #333;
             box-shadow: 8px 8px 0px #222;
             transition: transform 0.2s;
+            cursor: pointer;
         }
         .feature-card:hover {
             transform: translate(-4px, -4px);
@@ -229,6 +254,7 @@
             background: #1a1a1a; border: 4px solid #444; padding: 30px 20px;
             position: relative; text-align: left; box-shadow: 8px 8px 0px #000;
             transition: transform 0.2s;
+            cursor: pointer;
         }
         .step-card:hover { transform: translateY(-5px); border-color: var(--accent); box-shadow: 12px 12px 0px var(--accent); }
         .step-num {
@@ -340,6 +366,158 @@
             &copy; 2025 Leek Vision Labs | Beta 3.0 | Press Start to Continue.
         </footer>
     </div>
+
+    <!-- 音效提示 -->
+    <div class="sound-hint" id="soundHint">
+        🔊 Click anywhere to enable sounds
+    </div>
+
+    <script>
+        // 初始化音效引擎
+        let audioEnabled = false;
+        const leekAudio = new LeekAudio();
+
+        // 启用音效
+        function enableAudio() {
+            if (!audioEnabled) {
+                audioEnabled = true;
+                leekAudio.success();
+                document.getElementById('soundHint').innerHTML = '🔊 Sounds Enabled!';
+                setTimeout(() => {
+                    document.getElementById('soundHint').style.display = 'none';
+                }, 2000);
+            }
+        }
+
+        // 全局点击启用音效
+        document.addEventListener('click', enableAudio, { once: true });
+
+        // Logo 点击音效
+        document.querySelector('.logo').addEventListener('click', () => {
+            if (audioEnabled) {
+                leekAudio.petClick();
+                // 添加动画
+                const logo = document.querySelector('.logo');
+                logo.style.transform = 'scale(1.1) rotate(5deg)';
+                setTimeout(() => {
+                    logo.style.transform = 'scale(1) rotate(0deg)';
+                }, 200);
+            }
+        });
+
+        // 社交链接悬停音效
+        document.querySelectorAll('.social-links a').forEach(link => {
+            link.addEventListener('mouseenter', () => {
+                if (audioEnabled) leekAudio.hover();
+            });
+            link.addEventListener('click', () => {
+                if (audioEnabled) leekAudio.success();
+            });
+        });
+
+        // 按钮音效
+        document.querySelectorAll('.btn').forEach(btn => {
+            btn.addEventListener('mouseenter', () => {
+                if (audioEnabled) {
+                    leekAudio.hover();
+                    // 像素抖动效果
+                    btn.style.transform = 'translate(-2px, -2px) scale(1.02)';
+                }
+            });
+            btn.addEventListener('mouseleave', () => {
+                btn.style.transform = '';
+            });
+            btn.addEventListener('click', () => {
+                if (audioEnabled) leekAudio.success();
+            });
+        });
+
+        // 特性卡片音效
+        document.querySelectorAll('.feature-card').forEach(card => {
+            card.addEventListener('mouseenter', () => {
+                if (audioEnabled) {
+                    leekAIInput(); // 使用输入音效
+                    card.style.transform = 'translate(-4px, -4px)';
+                }
+            });
+            card.addEventListener('mouseleave', () => {
+                card.style.transform = '';
+            });
+        });
+
+        // 步骤卡片音效
+        document.querySelectorAll('.step-card').forEach(card => {
+            card.addEventListener('mouseenter', () => {
+                if (audioEnabled) {
+                    leekAIInput();
+                    card.style.transform = 'translateY(-5px)';
+                }
+            });
+            card.addEventListener('mouseleave', () => {
+                card.style.transform = '';
+            });
+        });
+
+        // 背景宠物点击音效
+        document.querySelectorAll('.floating-pet').forEach(pet => {
+            pet.style.cursor = 'pointer';
+            pet.addEventListener('click', (e) => {
+                if (audioEnabled) {
+                    leekAudio.petClick();
+                    // 添加跳跃动画
+                    pet.style.animation = 'none';
+                    pet.offsetHeight; // 触发重排
+                    pet.style.transform = 'scale(1.2) translateY(-20px)';
+                    pet.style.transition = 'transform 0.2s';
+                    setTimeout(() => {
+                        pet.style.transform = '';
+                        pet.style.animation = '';
+                    }, 200);
+                }
+            });
+        });
+
+        // CA 地址复制功能
+        const caCode = document.querySelector('code');
+        if (caCode) {
+            caCode.style.cursor = 'pointer';
+            caCode.addEventListener('click', async () => {
+                const ca = 'ECvBXW3Aq9CxN8xDzxE8tm7XpP2M8UJAC4UTDSy6TRND';
+                try {
+                    await navigator.clipboard.writeText(ca);
+                    if (audioEnabled) leekAudio.success();
+                    caCode.textContent = '✅ COPIED!';
+                    caCode.style.color = '#00ff00';
+                    setTimeout(() => {
+                        caCode.textContent = `CA: ${ca}`;
+                        caCode.style.color = '';
+                    }, 2000);
+                } catch (err) {
+                    console.error('Failed to copy:', err);
+                }
+            });
+            caCode.addEventListener('mouseenter', () => {
+                if (audioEnabled) leekAudio.hover();
+                caCode.style.transform = 'scale(1.05)';
+                caCode.style.transition = 'transform 0.1s';
+            });
+            caCode.addEventListener('mouseleave', () => {
+                caCode.style.transform = '';
+            });
+        }
+
+        // 键盘快捷键
+        document.addEventListener('keydown', (e) => {
+            if (audioEnabled) {
+                if (e.key === 'Enter' || e.key === ' ') {
+                    leekAudio.select();
+                }
+            }
+        });
+
+        console.log('🎵 网页音效系统已加载！');
+        console.log('🔊 点击页面任意位置启用音效');
+    </script>
 
 </body>
 </html>
