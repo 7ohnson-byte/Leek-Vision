@@ -327,7 +327,7 @@
                 Leek Vision
             </div>
             <div class="nav-right">
-                <button class="lang-switch" id="langSwitch" onclick="toggleLanguage()">
+                <button class="lang-switch" id="langSwitch">
                     <span id="langIcon">🌐</span>
                     <span id="langText">EN</span>
                 </button>
@@ -529,6 +529,21 @@
             console.log('📦 当前语言设置:', currentLang);
             updateLanguage();
             console.log('✅ 语言应用完成');
+
+            // 绑定语言切换按钮事件
+            const langSwitchBtn = document.getElementById('langSwitch');
+            if (langSwitchBtn) {
+                langSwitchBtn.addEventListener('click', toggleLanguage);
+                console.log('✅ 语言切换按钮点击事件已绑定');
+
+                // 绑定悬停音效
+                langSwitchBtn.addEventListener('mouseenter', () => {
+                    if (audioEnabled) leekAudio.hover();
+                });
+                console.log('✅ 语言切换按钮悬停音效已绑定');
+            } else {
+                console.error('❌ 找不到语言切换按钮');
+            }
         });
 
         // ==================== 音效系统 ====================
@@ -675,11 +690,6 @@
                     leekAudio.select();
                 }
             }
-        });
-
-        // 语言切换按钮音效
-        document.getElementById('langSwitch').addEventListener('mouseenter', () => {
-            if (audioEnabled) leekAudio.hover();
         });
 
         console.log('🎵 网页音效系统已加载！');
