@@ -131,6 +131,30 @@
             50% { opacity: 1; }
         }
 
+        /* 语言切换按钮 */
+        .lang-switch {
+            background: rgba(0, 255, 0, 0.1);
+            border: 2px solid var(--accent);
+            color: var(--accent);
+            padding: 6px 12px;
+            font-size: 14px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.2s;
+            text-transform: uppercase;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+        .lang-switch:hover {
+            background: rgba(0, 255, 0, 0.2);
+            transform: scale(1.05);
+            box-shadow: 2px 2px 0px var(--accent);
+        }
+        .lang-switch:active {
+            transform: scale(0.95);
+        }
+
         /* Hero 区域 (删除了 Demo 框) */
         .hero {
             text-align: center;
@@ -292,31 +316,35 @@
                 Leek Vision
             </div>
             <div class="social-links">
-                <a href="https://x.com/0x7ohnson" target="_blank">Twitter X</a>
-                <a href="https://github.com/7ohnson-byte/Leek-Vision" target="_blank">GitHub</a>
+                <button class="lang-switch" id="langSwitch" onclick="toggleLanguage()">
+                    <span id="langIcon">🌐</span>
+                    <span id="langText">EN</span>
+                </button>
+                <a href="https://x.com/0x7ohnson" target="_blank" data-i18n="twitter">Twitter X</a>
+                <a href="https://github.com/7ohnson-byte/Leek-Vision" target="_blank" data-i18n="github">GitHub</a>
             </div>
         </nav>
 
         <section class="hero">
-            <h1>
+            <h1 data-i18n="hero_title">
                 Don't just hodl.<br>
                 Play the <span>Market</span>.
             </h1>
-            <p class="subtitle">
+            <p class="subtitle" data-i18n="hero_subtitle">
                 The Pixel-Perfect Web3 Browser Toy. <br>Crypto News • Market Mood • AI Analysis
             </p>
             <div class="btn-group">
-                <a href="https://github.com/7ohnson-byte/Leek-Vision/archive/refs/heads/main.zip" class="btn btn-primary">
+                <a href="https://github.com/7ohnson-byte/Leek-Vision/archive/refs/heads/main.zip" class="btn btn-primary" data-i18n="btn_download">
                     💾 DOWNLOAD LEEK VISION 3.0
                 </a>
-                <a href="https://t.me/Leek_Vision" target="_blank" class="btn btn-secondary">
+                <a href="https://t.me/Leek_Vision" target="_blank" class="btn btn-secondary" data-i18n="btn_telegram">
                     ✈️ JOIN TG CHANNEL
                 </a>
             </div>
 
             <!-- CA Address -->
             <div style="margin-top: 40px; padding: 20px; background: rgba(0, 255, 0, 0.05); border: 2px dashed var(--accent); display: inline-block;">
-                <p style="margin: 0; color: #aaa; font-size: 14px; margin-bottom: 8px;">SUPPORT THE PROJECT</p>
+                <p style="margin: 0; color: #aaa; font-size: 14px; margin-bottom: 8px;" data-i18n="support_label">SUPPORT THE PROJECT</p>
                 <code style="font-size: 14px; color: var(--accent); border: none; background: transparent; word-break: break-all;">
                     CA: ECvBXW3Aq9CxN8xDzxE8tm7XpP2M8UJAC4UTDSy6TRND
                 </code>
@@ -326,53 +354,151 @@
         <section class="features">
             <div class="feature-card">
                 <span class="icon">📰</span>
-                <h3>Crypto News Push</h3>
-                <p>Real-time crypto news notifications. Stay updated with market-moving stories every 10 minutes.</p>
+                <h3 data-i18n="feature1_title">Crypto News Push</h3>
+                <p data-i18n="feature1_desc">Real-time crypto news notifications. Stay updated with market-moving stories every 10 minutes.</p>
             </div>
             <div class="feature-card">
                 <span class="icon">🎭</span>
-                <h3>Market Mood Sync</h3>
-                <p>Your pet reacts to BTC/SOL price changes. Sunglasses on pumps, tears on dumps.</p>
+                <h3 data-i18n="feature2_title">Market Mood Sync</h3>
+                <p data-i18n="feature2_desc">Your pet reacts to BTC/SOL price changes. Sunglasses on pumps, tears on dumps.</p>
             </div>
             <div class="feature-card">
                 <span class="icon">🧠</span>
-                <h3>Degen AI Brain</h3>
-                <p>Instant "Risk & Signal" reports for any shitcoin, powered by on-chain data.</p>
+                <h3 data-i18n="feature3_title">Degen AI Brain</h3>
+                <p data-i18n="feature3_desc">Instant "Risk & Signal" reports for any shitcoin, powered by on-chain data.</p>
             </div>
         </section>
 
         <section class="install-guide">
-            <h2>⚡ HOW TO INSTALL (BETA)</h2>
+            <h2 data-i18n="install_title">⚡ HOW TO INSTALL (BETA)</h2>
             <div class="steps-container">
                 <div class="step-card">
                     <div class="step-num">01</div>
-                    <h4>DOWNLOAD & UNZIP</h4>
-                    <p>Click the <strong>Download</strong> button above to get the zip file. Unzip it to a folder.</p>
+                    <h4 data-i18n="step1_title">DOWNLOAD & UNZIP</h4>
+                    <p data-i18n="step1_desc">Click the <strong>Download</strong> button above to get the zip file. Unzip it to a folder.</p>
                 </div>
                 <div class="step-card">
                     <div class="step-num">02</div>
-                    <h4>OPEN EXTENSIONS</h4>
-                    <p>Type <code>chrome://extensions</code> in URL bar, and toggle <strong>Developer Mode</strong> ↗️.</p>
+                    <h4 data-i18n="step2_title">OPEN EXTENSIONS</h4>
+                    <p data-i18n="step2_desc">Type <code>chrome://extensions</code> in URL bar, and toggle <strong>Developer Mode</strong> ↗️.</p>
                 </div>
                 <div class="step-card">
                     <div class="step-num">03</div>
-                    <h4>LOAD UNPACKED</h4>
-                    <p>Click <strong>"Load Unpacked"</strong> and select the unzipped folder. Done! 🧢</p>
+                    <h4 data-i18n="step3_title">LOAD UNPACKED</h4>
+                    <p data-i18n="step3_desc">Click <strong>"Load Unpacked"</strong> and select the unzipped folder. Done! 🧢</p>
                 </div>
             </div>
         </section>
 
-        <footer>
+        <footer data-i18n="footer">
             &copy; 2025 Leek Vision Labs | Beta 3.0 | Press Start to Continue.
         </footer>
     </div>
 
     <!-- 音效提示 -->
     <div class="sound-hint" id="soundHint">
-        🔊 Click anywhere to enable sounds
+        🔊 <span data-i18n="sound_hint">Click anywhere to enable sounds</span>
     </div>
 
     <script>
+        // ==================== 翻译系统 ====================
+        const translations = {
+            en: {
+                twitter: "Twitter X",
+                github: "GitHub",
+                hero_title: 'Don\'t just hodl.<br>Play the <span>Market</span>.',
+                hero_subtitle: 'The Pixel-Perfect Web3 Browser Toy. <br>Crypto News • Market Mood • AI Analysis',
+                btn_download: '💾 DOWNLOAD LEEK VISION 3.0',
+                btn_telegram: '✈️ JOIN TG CHANNEL',
+                support_label: 'SUPPORT THE PROJECT',
+                feature1_title: 'Crypto News Push',
+                feature1_desc: 'Real-time crypto news notifications. Stay updated with market-moving stories every 10 minutes.',
+                feature2_title: 'Market Mood Sync',
+                feature2_desc: 'Your pet reacts to BTC/SOL price changes. Sunglasses on pumps, tears on dumps.',
+                feature3_title: 'Degen AI Brain',
+                feature3_desc: 'Instant "Risk & Signal" reports for any shitcoin, powered by on-chain data.',
+                install_title: '⚡ HOW TO INSTALL (BETA)',
+                step1_title: 'DOWNLOAD & UNZIP',
+                step1_desc: 'Click the <strong>Download</strong> button above to get the zip file. Unzip it to a folder.',
+                step2_title: 'OPEN EXTENSIONS',
+                step2_desc: 'Type <code>chrome://extensions</code> in URL bar, and toggle <strong>Developer Mode</strong> ↗️.',
+                step3_title: 'LOAD UNPACKED',
+                step3_desc: 'Click <strong>"Load Unpacked"</strong> and select the unzipped folder. Done! 🧢',
+                footer: '&copy; 2025 Leek Vision Labs | Beta 3.0 | Press Start to Continue.',
+                sound_hint: 'Click anywhere to enable sounds',
+                copied: '✅ COPIED!',
+                ca_label: 'CA: '
+            },
+            zh: {
+                twitter: "推特",
+                github: "GitHub",
+                hero_title: '别只管持有。<br>玩转 <span>市场</span>。',
+                hero_subtitle: '像素完美的 Web3 浏览器玩具。<br>加密新闻 • 市场情绪 • AI 分析',
+                btn_download: '💾 下载韭菜眼镜 3.0',
+                btn_telegram: '✈️ 加入 TG 频道',
+                support_label: '支持本项目',
+                feature1_title: '加密新闻推送',
+                feature1_desc: '实时加密货币新闻通知。每 10 分钟获取市场动态。',
+                feature2_title: '市场情绪同步',
+                feature2_desc: '你的宠物对 BTC/SOL 价格变化做出反应。上涨戴墨镜，下跌流眼泪。',
+                feature3_title: '韭菜 AI 大脑',
+                feature3_desc: '由链上数据驱动的即时"风险和信号"报告，分析任何山寨币。',
+                install_title: '⚡ 如何安装 (测试版)',
+                step1_title: '下载并解压',
+                step1_desc: '点击上方的 <strong>下载</strong> 按钮获取 zip 文件。解压到一个文件夹。',
+                step2_title: '打开扩展程序',
+                step2_desc: '在地址栏输入 <code>chrome://extensions</code>，并切换 <strong>开发者模式</strong> ↗️。',
+                step3_title: '加载已解压的扩展程序',
+                step3_desc: '点击 <strong>"加载已解压的扩展程序"</strong> 并选择解压后的文件夹。完成！🧢',
+                footer: '&copy; 2025 韭菜视觉实验室 | Beta 3.0 | 按开始键继续。',
+                sound_hint: '点击页面任意位置启用音效',
+                copied: '✅ 已复制！',
+                ca_label: 'CA: '
+            }
+        };
+
+        // 当前语言
+        let currentLang = localStorage.getItem('leekVisionLang') || 'en';
+
+        // 切换语言函数
+        function toggleLanguage() {
+            currentLang = currentLang === 'en' ? 'zh' : 'en';
+            localStorage.setItem('leekVisionLang', currentLang);
+            updateLanguage();
+
+            // 播放音效
+            if (audioEnabled) leekAudio.select();
+
+            // 按钮动画
+            const btn = document.getElementById('langSwitch');
+            btn.style.transform = 'scale(0.9) rotate(5deg)';
+            setTimeout(() => {
+                btn.style.transform = '';
+            }, 200);
+        }
+
+        // 更新页面语言
+        function updateLanguage() {
+            // 更新语言按钮
+            document.getElementById('langText').textContent = currentLang === 'en' ? 'EN' : '中';
+
+            // 更新所有带 data-i18n 的元素
+            document.querySelectorAll('[data-i18n]').forEach(el => {
+                const key = el.getAttribute('data-i18n');
+                if (translations[currentLang][key]) {
+                    el.innerHTML = translations[currentLang][key];
+                }
+            });
+
+            console.log('🌐 语言已切换到:', currentLang === 'en' ? 'English' : '中文');
+        }
+
+        // 页面加载时应用保存的语言
+        document.addEventListener('DOMContentLoaded', () => {
+            updateLanguage();
+        });
+
+        // ==================== 音效系统 ====================
         // 初始化音效引擎
         let audioEnabled = false;
         const leekAudio = new LeekAudio();
@@ -382,7 +508,8 @@
             if (!audioEnabled) {
                 audioEnabled = true;
                 leekAudio.success();
-                document.getElementById('soundHint').innerHTML = '🔊 Sounds Enabled!';
+                const hintText = currentLang === 'en' ? '🔊 Sounds Enabled!' : '🔊 音效已启用！';
+                document.getElementById('soundHint').innerHTML = hintText;
                 setTimeout(() => {
                     document.getElementById('soundHint').style.display = 'none';
                 }, 2000);
@@ -486,10 +613,15 @@
                 try {
                     await navigator.clipboard.writeText(ca);
                     if (audioEnabled) leekAudio.success();
-                    caCode.textContent = '✅ COPIED!';
+
+                    // 使用翻译
+                    const copiedText = translations[currentLang].copied;
+                    const caLabel = translations[currentLang].ca_label;
+
+                    caCode.textContent = copiedText;
                     caCode.style.color = '#00ff00';
                     setTimeout(() => {
-                        caCode.textContent = `CA: ${ca}`;
+                        caCode.textContent = `${caLabel}${ca}`;
                         caCode.style.color = '';
                     }, 2000);
                 } catch (err) {
@@ -515,8 +647,15 @@
             }
         });
 
+        // 语言切换按钮音效
+        document.getElementById('langSwitch').addEventListener('mouseenter', () => {
+            if (audioEnabled) leekAudio.hover();
+        });
+
         console.log('🎵 网页音效系统已加载！');
+        console.log('🌐 多语言系统已加载！');
         console.log('🔊 点击页面任意位置启用音效');
+        console.log('当前语言:', currentLang === 'en' ? 'English' : '中文');
     </script>
 
 </body>
