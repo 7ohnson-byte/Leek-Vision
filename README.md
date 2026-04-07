@@ -1,3 +1,10 @@
+<!-- vibegrow:auto:quick-readme-polish -->
+## VibeGrow Auto Task (2026-04-07)
+- Owner: @7ohnson-byte
+- Focus: Polish the README opening section
+- Action: Update README intro and setup commands
+- Issue: N/A
+
 <div align="center">
   <img src="images/icon.jpeg" alt="Leek Vision Logo" width="120" height="120">
   <h1>🧢 Leek Vision | 韭菜眼镜</h1>
